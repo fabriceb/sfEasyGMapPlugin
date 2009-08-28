@@ -16,21 +16,6 @@ Installation
         
         $ svn co http://svn.symfony-project.com/plugins/sfEasyGMapPlugin sfEasyGMapPlugin 
 
-  * Get some Google Maps API keys for your production and development environments
-
-        http://code.google.com/apis/maps/signup.html
-
-  * Put the keys in your app.yml file
-
-         all:
-           google_maps_api:
-             keys:
-               dev:                     'ABQIAAAAMcio4BHojGWyeo4qphH4yhTGv8pFig_qdcIeIanIjQzecSm0lRThDMeOEbaNzhMsemaIKNBFH4d_bA'
-               default:                 'ABQIAAAAR8dhgMmvaR96TE0zbrZpPhQkC0X2Qt_FPPKUNef1lx8wcSNN5RSh1f6S_Z1zYVlkP4P3z0Qc9kcaQQ'
-               localhost:               'ABQIAAAAR8dhgMmvaR96TE0zbrZpPhT2yXp_ZAY8_ufC3CFXhHIE1NvwkxTigwPNwH8mpUzCtNyXEc8wof8pQQ'
-               127.0.0.1:               'ABQIAAAAR8dhgMmvaR96TE0zbrZpPhRi_j0U6kJrkFvY4-OX2XYmEAa76BSBf4cexehBD0A_7x8IHGqyru1L-w'
-
-
   * Optional: enable the sample module in your `settings.yml`: sfEasyGMapPlugin
 
             [php]

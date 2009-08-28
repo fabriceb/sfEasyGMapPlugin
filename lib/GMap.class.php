@@ -25,10 +25,6 @@ if (!class_exists('GMapIcon', true))
 {
   require_once(dirname(__FILE__).'/GMapIcon.class.php');
 }
-if (!class_exists('GMapJsShortcuts', true))
-{
-  require_once(dirname(__FILE__).'/GMapJsShortcuts.class.php');
-}
 if (!class_exists('GMapMarker', true))
 {
   require_once(dirname(__FILE__).'/GMapMarker.class.php');

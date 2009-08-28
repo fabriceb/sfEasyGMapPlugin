@@ -40,7 +40,6 @@ class GMapMarker
     // number  All Markers are displayed on the map in order of their zIndex, with higher values displaying in front of Markers with lower values. By default, Markers are displayed according to their latitude, with Markers of lower latitudes appearing in front of Markers at higher latitudes.  
     'zIndex ' => null,
   );
-  protected $icon           = null;
   protected $shadow           = null;
   protected $events         = array();
   protected $custom_properties = array();
@@ -53,12 +52,11 @@ class GMapMarker
    * @param GmapEvent[] array of GoogleMap Events linked to the marker
    * @author Fabrice Bernhard
    */
-  public function __construct($lat,$lng,$options,$js_name='marker',$events=array())
+  public function __construct($lat,$lng,$options = array(),$js_name='marker',$events=array())
   {
     $this->js_name = $js_name;
     $this->setOptions($options);
     $this->setGMapCoord(new GMapCoord($lat,$lng));
-    $this->icon    = $icon;
     $this->events  = $events;    
   }
   
@@ -92,7 +90,7 @@ class GMapMarker
   */
   public function getIcon()
   {
-    return $this->icon;
+    return null;//return $this->icon;
   }
   /**    
   * @return GMapIcon $icon  
