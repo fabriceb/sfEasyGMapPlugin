@@ -1,0 +1,207 @@
+sfEasyGMapPlugin
+================
+
+The sfEasyGMap plugin provides helpers and an objet-oriented PHP 
+abstraction to the Google Maps API to ease the process of adding a 
+Google Map and customising it in your symfony projects.
+
+Installation
+------------
+
+  * Install the plugin
+
+        $ symfony plugin:install sfEasyGMapPlugin (Not tested)
+        
+        or in your plugins directory :
+        
+        $ svn co http://svn.symfony-project.com/plugins/sfEasyGMapPlugin sfEasyGMapPlugin 
+
+  * Get some Google Maps API keys for your production and development environments
+
+        http://code.google.com/apis/maps/signup.html
+
+  * Put the keys in your app.yml file
+
+         all:
+           google_maps_api:
+             keys:
+               dev:                     'ABQIAAAAMcio4BHojGWyeo4qphH4yhTGv8pFig_qdcIeIanIjQzecSm0lRThDMeOEbaNzhMsemaIKNBFH4d_bA'
+               default:                 'ABQIAAAAR8dhgMmvaR96TE0zbrZpPhQkC0X2Qt_FPPKUNef1lx8wcSNN5RSh1f6S_Z1zYVlkP4P3z0Qc9kcaQQ'
+               localhost:               'ABQIAAAAR8dhgMmvaR96TE0zbrZpPhT2yXp_ZAY8_ufC3CFXhHIE1NvwkxTigwPNwH8mpUzCtNyXEc8wof8pQQ'
+               127.0.0.1:               'ABQIAAAAR8dhgMmvaR96TE0zbrZpPhRi_j0U6kJrkFvY4-OX2XYmEAa76BSBf4cexehBD0A_7x8IHGqyru1L-w'
+
+
+  * Optional: enable the sample module in your `settings.yml`: sfEasyGMapPlugin
+
+            [php]
+            all:
+              .settings:
+                enabled_modules:      [default, sfEasyGMapPlugin]
+
+  * Clear your cache
+
+        $ php symfony cc
+
+
+Examples
+--------
+
+  All samples are available in the sfEasyGMapPlugin module of the plugin
+  
+  IMPORTANT ! The javascript in the samples will not work unless you put the js files in your web directory.
+  
+        $ ln -s ../plugins/sfEasyGMapPlugin/web web/sfEasyGMapPlugin
+
+  * Sample 1
+  
+    Add some markers on a map, using longitudes and latitudes
+
+    * In the action:
+    
+            $this->gMap = new GMap();
+            $this->gMap->addMarker(new GMapMarker(51.245475,6.821373));
+            $this->gMap->addMarker(new GMapMarker(46.262248,6.115969));
+
+    * In the template:
+    
+            <?php use_helper('Javascript','GMap') ?>
+      
+            <?php include_map($gMap,array('width'=>'512px','height'=>'400px')); ?>
+      
+            <!-- Javascript included at the bottom of the page -->
+            <?php include_map_javascript($gMap); ?>
+      
+
+  * Sample 2
+  
+    Geocode some addresses and open an info window if the user clicks on a marker
+    
+    * In the action:
+    
+            $this->gMap = new GMap();
+
+            // some places in the world
+            $addresses = array(
+              'Graf-Recke-Strasse 220 - 40237 Düsseldorf',
+              'Avenue des sports 01210 FERNEY-VOLTAIRE - FRANCE',
+              '44 boulevard Saint-Michel, Paris',
+              'Route Saclay 91120 Palaiseau',
+              'Rämistrasse 101, Zürich'
+            );
+          
+            foreach ($addresses as $address)
+            {
+              $geocoded_address = $this->gMap->geocode($address);
+              $gMapMarker = new GMapMarker($geocoded_address->getLat(),$geocoded_address->getLng());
+              $gMapMarker->addHtmlInfoWindow('<b>Address:</b><br />'.$address); 
+              $this->gMap->addMarker($gMapMarker);
+            }
+      
+    * In the template:
+    
+            <?php use_helper('Javascript','GMap') ?>
+            
+            <?php include_map($gMap,array('width'=>'512px','height'=>'400px')); ?>
+       
+            <!-- Javascript included at the bottom of the page -->
+            <?php include_map_javascript($gMap); ?>
+
+
+  * Sample 3
+  
+    * change the map center location and the zoom level
+    
+    * change the zoom and movement controls used
+    
+    * store the markers' javascript objects in a javascript array
+    
+    * use a custom icon for the markers
+    
+    * bind event listeners to the markers linked to custom javascript functions
+    
+    * add custom property to the markers' javascript objects
+    
+    * In the action:
+    
+            // parameters: zoom level, lat, lng, options
+           $this->gMap = new GMap(
+                                          array(
+                                          		'zoom'=>4,
+                                          		'center_lat'=>45,
+                                          		'center_lng'=>8,
+                                          		'control'=>'new google.maps.SmallMapControl()'
+                                          )
+                              );
+      
+            // some places in the world
+            $coordinates = array(          
+              array(51.245475,6.821373),
+              array(46.262248,6.115969),
+              array(48.848959,2.341577),
+              array(48.718952,2.219180),
+              array(47.376420,8.547995)
+            );
+          
+            // adds a variable "markers" defined on the global level
+            $this->gMap->addGlobalVariable('markers','new Array()');
+          
+            // creates a custom icon for markers
+            $gMapIcon = new GMapIcon(
+              'nice_icon',
+              '/sfEasyGMapPlugin/images/nice_icon.png',
+              array(
+                'width'=>18,
+                'height'=>25,
+                'info_window_anchor_x'=>9,
+                'info_window_anchor_y'=>25
+              )
+            );
+            
+            // creates two custom event listeners 
+            $gMapEvent1 = new GMapEvent(
+              'mouseover',
+              "document.getElementById('console_div').innerHTML = 'Mouse over marker number '+this.num;"
+            );
+            $gMapEvent2 = new GMapEvent(
+              'mouseout',
+              "document.getElementById('console_div').innerHTML = '';"
+            );
+          
+            foreach ($coordinates as $key=>$coordinate)
+            {
+              // parameters: lat, lng, marker's javascript object's name, icon object
+              $gMapMarker = new GMapMarker($coordinate[0],$coordinate[1],'markers['.$key.']',$gMapIcon);
+              $gMapMarker->addHtmlInfoWindow('<b>Coordinates:</b><br />'.implode(', ',$coordinate));
+              // will add a custom property to the marker's javascript object
+              $gMapMarker->setCustomProperty('num',$key);
+              // binds the event listeners to the marker
+              $gMapMarker->addEvent($gMapEvent1);
+              $gMapMarker->addEvent($gMapEvent2);
+             
+              $this->gMap->addMarker($gMapMarker);
+            }
+
+    * In the template:
+    
+            <?php use_helper('Javascript','GMap') ?>
+            
+            <?php include_map($gMap,array('width'=>'512px','height'=>'400px')); ?>
+            
+            Search on the map:
+            <?php include_search_location_form() ?>
+            <br />
+            <br />
+            <div id="console_div" style="font-size:large"></div>
+            
+            <!-- Javascript included at the bottom of the page -->
+            <?php include_map_javascript($gMap); ?>
+      
+      
+      
+TODO
+----
+
+  * make the javascript more compact
+  * correct javascript files that suppose that the map's javascript object is called 'map'
+  * add support for EncodedLines
+  * add support for custom zoom and move controls

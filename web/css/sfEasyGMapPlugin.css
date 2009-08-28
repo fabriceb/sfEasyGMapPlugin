@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+input
+{
+  border:1px solid #BDC7D8;
+  padding:3px;
+}
+#search_location_input
+{
+  float:left;
+}
+#search_location_submit
+{
+  float:left;
+  width:60px;
+}
