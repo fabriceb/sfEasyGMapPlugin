@@ -1,9 +1,0 @@
-propel:
-  _attributes:   { package: plugins.sfEasyGMapPlugin.lib.model }
-  gmap_geocodes:
-    _attributes: { phpName: GMapCachedGeocode }
-    address:     { type: VARCHAR, size: '255', required: true, primaryKey: true }
-    lon:         { type: float, required: false }
-    lat:         { type: float, required: false }
-    accuracy:    { type: float, required: false }
-
