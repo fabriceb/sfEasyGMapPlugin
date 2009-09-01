@@ -1,49 +1,50 @@
-geocode_and_show = function (address)
+var set_location = function(response, status)
 {
-  geocoder = new google.maps.ClientGeocoder();
-  geocoder.setBaseCountryCode('FR');  
-  geocoder.getLocations(address,set_location);
-}
-function set_location(response)
-{
-  if(response.Status.code != 200)
+  console.log(response);
+  if(status != google.maps.GeocoderStatus.OK)
   {
     alert('Oops... adress not recognized by Google !');
     return false;
   }
   
   var zoom=15;
-  switch(response.Placemark[0].AddressDetails.Accuracy)
+  console.log(response[0].geometry.location_type);
+  switch(response[0].geometry.location_type)
   {
-    case 0:
-      zoom=1;
-      break;
     // country level
-    case 1:
-      zoom=4;
-      break;
-    case 2:
-      zoom=7;
-      break;
-    case 3:
+    case google.maps.GeocoderLocationType.APPROXIMATE:
       zoom=9;
       break;
-    // city level
-    case 4:
+    case google.maps.GeocoderLocationType.GEOMETRIC_CENTER:
       zoom=11;
       break;
-    case 5:
-      zoom=12;
-      break;
-    case 6:
+    // city level
+    case google.maps.GeocoderLocationType.RANGE_INTERPOLATED:
       zoom=13;
+      break;
+    case google.maps.GeocoderLocationType.ROOFTOP:
+      zoom=14;
       break;
     default:      
       zoom=14;
       break;
   }
   
-  point = new google.maps.LatLng(response.Placemark[0].Point.coordinates[1], response.Placemark[0].Point.coordinates[0]);
+  point = response[0].geometry.location;
+  console.log(point);
   
-  map.setCenter(point, zoom);
+  if (!marker)
+  {
+    marker = new google.maps.Marker({'map': map});
+  }
+  marker.set_position(point);
+  map.set_zoom(zoom);
+  map.set_center(point);
+}
+
+var geocode_and_show = function (address)
+{
+  console.log(address);
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'address': address}, set_location);
 }
