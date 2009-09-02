@@ -234,6 +234,8 @@ class GMapBounds
     return $this;
   }
   
+  
+  
   /**
    * Returns the most appropriate zoom to see the bounds on a map with min(width,height) = $min_w_h
    *
@@ -242,26 +244,43 @@ class GMapBounds
    * @author fabriceb
    * @since Feb 18, 2009 fabriceb
    */
-  public function getZoom($min_w_h)
+  public function getZoom($min_w_h, $default_zoom = 14)
   {
+  	$infinity = 999999999;
+  	$factor_h = $infinity;
+  	$factor_w = $infinity;
+
     /*
       
     formula: the width of the bounds in "pixels" is pix_w * 2^z
     We want pix_w * 2^z to fit in min_w_h so we are looking for
     z = round ( log2 ( min_w_h / pix_w  ) )
      */
-    
+  
     $sw_lat_pix = GMapCoord::fromLatToPix($this->getSouthWest()->getLatitude(),0);
     $ne_lat_pix = GMapCoord::fromLatToPix($this->getNorthEast()->getLatitude(),0);
     $pix_h = abs($sw_lat_pix-$ne_lat_pix);
-    $factor_h = $min_w_h / $pix_h;
+    if ($pix_h > 0)
+    {
+      $factor_h = $min_w_h / $pix_h;
+    }
     
     $sw_lng_pix = GMapCoord::fromLngToPix($this->getSouthWest()->getLongitude(),0);
     $ne_lng_pix = GMapCoord::fromLngToPix($this->getNorthEast()->getLongitude(),0);
     $pix_w = abs($sw_lng_pix-$ne_lng_pix);
-    $factor_w = $min_w_h / $pix_w;
+    if ($pix_w > 0)
+    {
+    	$factor_w = $min_w_h / $pix_w;
+    }
     
     $factor = min($factor_w,$factor_h);
+    
+    // bounds is one point, no zoom can be determined
+    if ($factor == $infinity)
+    {
+    	
+    	return $default_zoom;
+    }
     
     return round(log($factor,2));
   }

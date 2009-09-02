@@ -270,7 +270,7 @@ class GMapMarker
     
     $this->addEvent(new GMapEvent('click',"this.openInfoWindowHtml('".$javascript."')"));
   }
-
+	
   /**
    * Returns the code for the static version of Google Maps
    * @TODO Add support for color and alpha-char

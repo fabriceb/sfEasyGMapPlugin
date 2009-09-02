@@ -29,6 +29,51 @@ class GMapCoord
     $this->longitude    = floatval($longitude);
   }
   
+  
+  public static function criteriaOrderByDistance($lat_col_name, $lng_col_name,$lat,$lng, $criteria = null)
+  {
+    if (is_null($criteria))
+    {
+      $criteria = new Criteria();
+    }
+    
+    $distance = '('.$lat_col_name.'-'.$lat.')*('.$lat_col_name.'-'.$lat.')';
+    $distance .= ' + ('.$lng_col_name.'-'.$lng.')*('.$lng_col_name.'-'.$lng.')';
+    
+    $criteria->addAsColumn('distance',$distance);
+    $criteria->addAscendingOrderByColumn('distance');
+    
+    return $criteria;
+  }
+  
+  public static function criteriaInRadius($lat_col_name, $lng_col_name,$lat,$lng,$d, $criteria = null,$order_by_distance = true)
+  {
+    if (is_null($criteria))
+    {
+      $criteria = new Criteria();
+    }
+    
+    $distance = '('.$lat_col_name.'-'.$lat.')*('.$lat_col_name.'-'.$lat.')';
+    $distance .= ' + ('.$lng_col_name.'-'.$lng.')*('.$lng_col_name.'-'.$lng.')';
+
+    $k = rad2deg($d/self::EARTH_RADIUS);
+    $clause = $distance.' < '.$k;
+    
+    $criteria->add($lat_col_name,$clause,Criteria::CUSTOM);
+    
+    if($order_by_distance)
+    {
+    	$criteria = self::criteriaOrderByDistance($lat_col_name,$lng_col_name,$lat,$lng,$criteria);
+    }
+    
+    return $criteria;
+  }
+  
+  public function getCriteriaInRadius($lat_col_name,$lng_col_name,$d,$c = null,$order_by_distance = true)
+  {
+  	return self::criteriaInRadius($lat_col_name,$lng_col_name,$this->getLatitude(),$this->getLongitude(),$d,$c,$order_by_distance);
+  }
+  
   public function getLatitude()
   {
 

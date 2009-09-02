@@ -828,11 +828,11 @@ class GMap
    * @author fabriceb
    * @since 2009-05-02
    */
-  public function getMarkersFittingZoom($margin = 0)
+  public function getMarkersFittingZoom($margin = 0, $default_zoom = 14)
   {
     $bounds = GMapBounds::getBoundsContainingMarkers($this->markers, $margin);
-
-    return $bounds->getZoom(min($this->getWidth(),$this->getHeight()));
+    
+    return $bounds->getZoom(min($this->getWidth(),$this->getHeight()), $default_zoom);
   }
 
   /**
@@ -843,9 +843,9 @@ class GMap
    * @author fabriceb
    * @since 2009-05-02
    */
-  public function zoomOnMarkers($margin = 0)
+  public function zoomOnMarkers($margin = 0, $default_zoom = 14)
   {
-    $this->setZoom($this->getMarkersFittingZoom($margin));
+    $this->setZoom($this->getMarkersFittingZoom($margin, $default_zoom));
   }
 
    /**
@@ -855,10 +855,10 @@ class GMap
    * @author fabriceb
    * @since 2009-05-02
    */
-  public function centerAndZoomOnMarkers($margin = 0)
+  public function centerAndZoomOnMarkers($margin = 0, $default_zoom = 14)
   {
     $this->centerOnMarkers();
-    $this->zoomOnMarkers($margin);
+    $this->zoomOnMarkers($margin, $default_zoom);
   }
 
   /**
