@@ -202,6 +202,8 @@ class GMapMarker
   	  	switch($name)
   	  	{
   	      case 'position':
+  	      case 'icon':
+  	      case 'shadow':
   	      	$options_array[] = $name.': '.$value->toJs();
   	      	break;
   	      default:
@@ -227,11 +229,11 @@ class GMapMarker
   	$this->setOption('map', $map_js_name);
     if ($this->getIcon() instanceof GMapMarkerImage)
     {
-      $this->setOption('icon', $this->getIcon()->getName());
+      $this->setOption('icon', $this->getIcon());
     }
     if ($this->getShadow() instanceof GMapMarkerImage)
     {
-      $this->setOption('shadow', $this->getShadow()->getName());
+      $this->setOption('shadow', $this->getShadow());
     }
     $return = '';
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
