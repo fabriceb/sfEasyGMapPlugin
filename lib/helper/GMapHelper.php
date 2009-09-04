@@ -10,7 +10,9 @@
 function include_map($gMap,$options=array())
 {
   if ($gMap instanceof sfOutputEscaper)
+  {
   	$gMap = $gMap->getRawValue();
+  }
 	
   echo $gMap->getContainer($options);
 }
@@ -24,7 +26,9 @@ function include_map($gMap,$options=array())
 function include_map_javascript($gMap)
 {
   if ($gMap instanceof sfOutputEscaper)
+  {
   	$gMap = $gMap->getRawValue();
+  }
 
   ?>
   <script type='text/javascript'>
