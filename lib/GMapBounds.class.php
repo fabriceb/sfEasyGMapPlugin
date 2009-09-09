@@ -246,9 +246,9 @@ class GMapBounds
    */
   public function getZoom($min_w_h, $default_zoom = 14)
   {
-  	$infinity = 999999999;
-  	$factor_h = $infinity;
-  	$factor_w = $infinity;
+    $infinity = 999999999;
+    $factor_h = $infinity;
+    $factor_w = $infinity;
 
     /*
       
@@ -270,7 +270,7 @@ class GMapBounds
     $pix_w = abs($sw_lng_pix-$ne_lng_pix);
     if ($pix_w > 0)
     {
-    	$factor_w = $min_w_h / $pix_w;
+      $factor_w = $min_w_h / $pix_w;
     }
     
     $factor = min($factor_w,$factor_h);
@@ -278,8 +278,8 @@ class GMapBounds
     // bounds is one point, no zoom can be determined
     if ($factor == $infinity)
     {
-    	
-    	return $default_zoom;
+      
+      return $default_zoom;
     }
     
     return round(log($factor,2));
@@ -377,7 +377,7 @@ class GMapBounds
     return GMapBounds::getBoundsContainingCoords($coords, $margin);
   }
   
-	
+  
   /**
    * Calculate the bounds corresponding to a specific center and zoom level for a give map size in pixels
    * 

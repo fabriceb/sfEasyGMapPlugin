@@ -87,7 +87,7 @@ class GMap
 
   // id of the Google Map div container
   protected $container_attributes = array(
-  		'id' =>'map'
+      'id' =>'map'
   );
   
   // style of the container
@@ -351,45 +351,45 @@ class GMap
    */
   public function optionsToJs()
   {
-  	$options_array = array();
-  	foreach($this->options as $name => $value)
-  	{
-  	  if (!is_null($value))
-  	  {
-  	  	switch($name)
-  	  	{
-  	  	  case 'navigationControlOptions':
-  	      case 'scaleControlOptions':
-  	      case 'mapTypeControlOptions':
-  	      	$options_array[] = $name.': {style: '.$value.'}';
-  	      	break;
-  	      case 'center':
-  	      	$options_array[] = $name.': '.$value->toJs();
-  	      	break;
-  	      default:
-  	      	$options_array[] = $name.': '.$value;
-  	      	break;
-  	  	}
-  	  }
-  	}
-  	$tab = '  ';
-  	$separator = "\n".$tab.$tab;
-  	
-  	return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
+    $options_array = array();
+    foreach($this->options as $name => $value)
+    {
+      if (!is_null($value))
+      {
+        switch($name)
+        {
+          case 'navigationControlOptions':
+          case 'scaleControlOptions':
+          case 'mapTypeControlOptions':
+            $options_array[] = $name.': {style: '.$value.'}';
+            break;
+          case 'center':
+            $options_array[] = $name.': '.$value->toJs();
+            break;
+          default:
+            $options_array[] = $name.': '.$value;
+            break;
+        }
+      }
+    }
+    $tab = '  ';
+    $separator = "\n".$tab.$tab;
+    
+    return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
   }
   
   public function getOnloadJs()
   {
-  	switch ($this->parameters['onload_method'])
-  	{
-  	  case 'jQuery':
-  	  	return 'jQuery(document).ready(function(){initialize();});';
-  	  	break;
-  	  default:
-  	  case 'js':
-  	  	return 'window.onload = function(){initialize()};';
-  	  	break;
-  	}
+    switch ($this->parameters['onload_method'])
+    {
+      case 'jQuery':
+        return 'jQuery(document).ready(function(){initialize();});';
+        break;
+      default:
+      case 'js':
+        return 'window.onload = function(){initialize()};';
+        break;
+    }
   }
 
   /**
@@ -523,7 +523,7 @@ class GMap
    */
   public function getIconsJs()
   {
-  	$this->loadMarkerIcons();
+    $this->loadMarkerIcons();
     $return = '';
     foreach ($this->icons as $icon)
     {
@@ -595,8 +595,8 @@ class GMap
    */
   public function getOption($name)
   {
-  	
-  	return $this->options[$name];
+    
+    return $this->options[$name];
   }
   
   /**
@@ -609,7 +609,7 @@ class GMap
    */
   public function setOption($name, $value)
   {
-  	$this->options[$name] = $value;
+    $this->options[$name] = $value;
   }
   
   /**
@@ -688,12 +688,12 @@ class GMap
   public function getWidth()
   {
     // percentage or 0px
-  	if (substr($this->getContainerStyle('width'),-2,2) != 'px')
-  	{
-  		
-  	  return false;
-  	}
-  	
+    if (substr($this->getContainerStyle('width'),-2,2) != 'px')
+    {
+      
+      return false;
+    }
+    
     return intval(substr($this->getContainerStyle('width'),0,-2));
   }
 
@@ -705,12 +705,12 @@ class GMap
    */
   public function getHeight()
   {
-  	// percentage or 0px
-  	if (substr($this->getContainerStyle('height'),-2,2) != 'px')
-  	{
-  		
-  	  return false;
-  	}
+    // percentage or 0px
+    if (substr($this->getContainerStyle('height'),-2,2) != 'px')
+    {
+      
+      return false;
+    }
 
     return intval(substr($this->getContainerStyle('height'),0,-2));
   }
@@ -724,10 +724,10 @@ class GMap
    */
   public function setWidth($width)
   {
-  	if (is_int($width))
-  	{
-  	  $width = $width.'px';
-  	}
+    if (is_int($width))
+    {
+      $width = $width.'px';
+    }
     $this->setContainerStyle('width', $width);
   }
 
@@ -741,9 +741,9 @@ class GMap
   public function setHeight($height)
   {
     if (is_int($height))
-  	{
-  	  $height = $height.'px';
-  	}
+    {
+      $height = $height.'px';
+    }
     $this->setContainerStyle('height',$height);
   }
 

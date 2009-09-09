@@ -108,7 +108,7 @@ class GMapCoord
   public function getCriteriaInRadius($lat_col_name, $lng_col_name, $distance, $criteria = null, $order_by_distance = true)
   {
     
-  	return self::criteriaInRadius($lat_col_name, $lng_col_name, $this->getLatitude(), $this->getLongitude(), $distance, $criteria, $order_by_distance);
+    return self::criteriaInRadius($lat_col_name, $lng_col_name, $this->getLatitude(), $this->getLongitude(), $distance, $criteria, $order_by_distance);
   }
   
   public function getLatitude()
@@ -159,7 +159,7 @@ class GMapCoord
    */
   public function toJs()
   {
-  	
+    
     return 'new google.maps.LatLng('.$this->__toString().')';
   }
   

@@ -46,7 +46,7 @@ class GMapMarkerImage
     $this->url = $url;
     if(is_array($size) && isset($size['width']) && isset($size['height']))
     {
-    	$this->setSize($size['width'],$size['height']);
+      $this->setSize($size['width'],$size['height']);
     }
     
     if(is_array($origin) && isset($origin['x']) && isset($origin['y']))
@@ -218,7 +218,7 @@ class GMapMarkerImage
    */
   public function sizeToJs()
   {
-  	$size = 'null';
+    $size = 'null';
     if(!empty($this->size['width']) && !empty($this->size['height']))
     {
       $size = 'new google.maps.Size('.$this->getWidth().','.$this->getHeight().')'; 
@@ -252,7 +252,7 @@ class GMapMarkerImage
    */
   public function anchorToJs()
   {
-  	$anchor = 'null';
+    $anchor = 'null';
     if(!empty($this->anchor['x']) && !empty($this->anchor['y']))
     {
       $anchor = $this->getName().'new google.maps.Point('.$this->getAnchorX().','.$this->getAnchorY().')'; 
@@ -269,11 +269,11 @@ class GMapMarkerImage
    */
   public function toJs()
   {
-  	$params = array();
-  	
-  	$params[] = '"'.$this->getUrl().'"';
-  	$params[] = $this->sizeToJs();
-  	$params[] = $this->originToJs();
+    $params = array();
+    
+    $params[] = '"'.$this->getUrl().'"';
+    $params[] = $this->sizeToJs();
+    $params[] = $this->originToJs();
     $params[] = $this->anchorToJs();
     
     $return = 'new google.maps.MarkerImage('.implode(',',$params).")";

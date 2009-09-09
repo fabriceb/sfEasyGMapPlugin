@@ -11,9 +11,9 @@ function include_map($gMap,$options=array())
 {
   if ($gMap instanceof sfOutputEscaper)
   {
-  	$gMap = $gMap->getRawValue();
+    $gMap = $gMap->getRawValue();
   }
-	
+  
   echo $gMap->getContainer($options);
 }
 
@@ -27,7 +27,7 @@ function include_map_javascript($gMap)
 {
   if ($gMap instanceof sfOutputEscaper)
   {
-  	$gMap = $gMap->getRawValue();
+    $gMap = $gMap->getRawValue();
   }
 
   ?>
@@ -49,7 +49,7 @@ function include_map_javascript($gMap)
 function include_google_map_javascript_file($gMap)
 {
   if ($gMap instanceof sfOutputEscaper)
-  	$gMap = $gMap->getRawValue();
+    $gMap = $gMap->getRawValue();
 
   ?>
   <script language="javascript" src ="<?php echo $gMap->getGoogleJsUrl() ?>"></script>
@@ -72,11 +72,11 @@ function include_search_location_form()
  * Provides an address guesser using Google Maps geocode requests
  *
  * Example Javascript Callback Function:
- *	function myAddressGuesserCallback(addresses)
- *	{
- *		if (addresses.length == 0) return;
- *		alert(addresses.length + ' addresses were found.');
- *	}
+ *  function myAddressGuesserCallback(addresses)
+ *  {
+ *    if (addresses.length == 0) return;
+ *    alert(addresses.length + ' addresses were found.');
+ *  }
  *
  *
  * @param GMapAddressGuesser $addressGuesser
@@ -85,16 +85,16 @@ function include_search_location_form()
  */
 function include_address_guesser(GMapAddressGuesser $addressGuesser, $options = array())
 {
-	if ($addressGuesser instanceof sfOutputEscaper)
-		$addressGuesser = $addressGuesser->getRawValue();	
-	if (!($addressGuesser instanceof GMapAddressGuesser))
-		throw new InvalidArgumentException('addressGuesser must be an instance of GMapAddressGuesser.');
-	if (!is_array($options))
-		throw new InvalidArgumentException('options must be an array.');
+  if ($addressGuesser instanceof sfOutputEscaper)
+    $addressGuesser = $addressGuesser->getRawValue(); 
+  if (!($addressGuesser instanceof GMapAddressGuesser))
+    throw new InvalidArgumentException('addressGuesser must be an instance of GMapAddressGuesser.');
+  if (!is_array($options))
+    throw new InvalidArgumentException('options must be an array.');
 
-	use_helper('JavascriptBase');
+  use_helper('JavascriptBase');
 
-	sfContext::getInstance()->getResponse()->addJavascript('http://www.google.com/jsapi?key='.$addressGuesser->getApiKey());
-	sfContext::getInstance()->getResponse()->addJavascript('/sfEasyGMapPlugin/js/addressGuesser.js');
-	echo javascript_tag($addressGuesser->getJavascript($options));
+  sfContext::getInstance()->getResponse()->addJavascript('http://www.google.com/jsapi?key='.$addressGuesser->getApiKey());
+  sfContext::getInstance()->getResponse()->addJavascript('/sfEasyGMapPlugin/js/addressGuesser.js');
+  echo javascript_tag($addressGuesser->getJavascript($options));
 }

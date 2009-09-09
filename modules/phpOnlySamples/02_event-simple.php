@@ -39,11 +39,11 @@ $gMap->addEvent(new GMapEvent('zoom_changed', 'setTimeout(moveToDarwin, 1500);')
   <head>
     <?php include_google_map_javascript_file($gMap); ?>
     <script type="text/javascript">
-	  function moveToDarwin() {
-	    var darwin = new google.maps.LatLng(-12.461334, 130.841904);
-	    map.set_center(darwin);
-	  }
-	</script>
+    function moveToDarwin() {
+      var darwin = new google.maps.LatLng(-12.461334, 130.841904);
+      map.set_center(darwin);
+    }
+  </script>
   </head>
   <body>
 

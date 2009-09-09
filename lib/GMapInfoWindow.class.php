@@ -71,7 +71,7 @@ class GMapInfoWindow
    */
   public function getContent()
   {
-  	return $this->content;
+    return $this->content;
   }
   
   /**
@@ -82,10 +82,10 @@ class GMapInfoWindow
    */
   public function setContent($content)
   {
-  	$content = preg_replace('/\r\n|\n|\r/', "\\n", $content);
+    $content = preg_replace('/\r\n|\n|\r/', "\\n", $content);
     $content = preg_replace('/(["\'])/', '\\\\\1', $content);
     
-  	$this->content = '"'.$content.'"';
+    $this->content = '"'.$content.'"';
   }
   
   
@@ -118,8 +118,8 @@ class GMapInfoWindow
    */
   public function getOption($name)
   {
-  	
-  	return $this->options[$name];
+    
+    return $this->options[$name];
   }
   
   /**
@@ -132,7 +132,7 @@ class GMapInfoWindow
    */
   public function setOption($name, $value)
   {
-  	$this->options[$name] = $value;
+    $this->options[$name] = $value;
   }
 
   /**
@@ -143,10 +143,10 @@ class GMapInfoWindow
    */
   public function pixelOffsetToJs()
   {
-  	$pixelOffset = $this->getOption('pixelOffset');
-  	$size = 'null';
-  	if(is_array($pixelOffset) && isset($pixelOffset['width']) && isset($pixelOffset['height']))
-  	{
+    $pixelOffset = $this->getOption('pixelOffset');
+    $size = 'null';
+    if(is_array($pixelOffset) && isset($pixelOffset['width']) && isset($pixelOffset['height']))
+    {
       $size = 'new google.maps.Size('.$this->getWidth().','.$this->getHeight().')'; 
     }
     
@@ -162,26 +162,26 @@ class GMapInfoWindow
    */
   public function optionsToJs()
   {
-  	$options_array = array();
-  	foreach($this->options as $name => $value)
-  	{
-  	  if (!is_null($value))
-  	  {
-  	  	switch($name)
-  	  	{
-  	      case 'pixelOffset':
-  	      	$options_array[] = $name.': '.$this->pixelOffsetToJs();
-  	      	break;
-  	      default:
-  	      	$options_array[] = $name.': '.$value;
-  	      	break;
-  	  	}
-  	  }
-  	}
-  	$tab = '  ';
-  	$separator = "\n".$tab.$tab;
-  	
-  	return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
+    $options_array = array();
+    foreach($this->options as $name => $value)
+    {
+      if (!is_null($value))
+      {
+        switch($name)
+        {
+          case 'pixelOffset':
+            $options_array[] = $name.': '.$this->pixelOffsetToJs();
+            break;
+          default:
+            $options_array[] = $name.': '.$value;
+            break;
+        }
+      }
+    }
+    $tab = '  ';
+    $separator = "\n".$tab.$tab;
+    
+    return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
   }
   
   /**
@@ -192,7 +192,7 @@ class GMapInfoWindow
   */
   public function toJs($map_js_name = 'map')
   {
-  	$content = $this->getContent();
+    $content = $this->getContent();
     if (!empty($content))
     {
       $this->setOption('content', $content);

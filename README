@@ -1,8 +1,8 @@
 sfEasyGMapPlugin
 ================
 
-The sfEasyGMap plugin provides helpers and an objet-oriented PHP 
-abstraction to the Google Maps API to ease the process of adding a 
+The sfEasyGMap plugin provides helpers and an objet-oriented PHP
+abstraction to the Google Maps API to ease the process of adding a
 Google Map and customising it in your symfony projects.
 
 Installation
@@ -11,10 +11,10 @@ Installation
   * Install the plugin
 
         $ symfony plugin:install sfEasyGMapPlugin (Not tested)
-        
+
         or in your plugins directory :
-        
-        $ svn co http://svn.symfony-project.com/plugins/sfEasyGMapPlugin sfEasyGMapPlugin 
+
+        $ svn co http://svn.symfony-project.com/plugins/sfEasyGMapPlugin sfEasyGMapPlugin
 
   * Optional: enable the sample module in your `settings.yml`: sfEasyGMapPlugin
 
@@ -32,37 +32,37 @@ Examples
 --------
 
   All samples are available in the sfEasyGMapPlugin module of the plugin
-  
+
   IMPORTANT ! The javascript in the samples will not work unless you put the js files in your web directory.
-  
+
         $ ln -s ../plugins/sfEasyGMapPlugin/web web/sfEasyGMapPlugin
 
   * Sample 1
-  
+
     Add some markers on a map, using longitudes and latitudes
 
     * In the action:
-    
+
             $this->gMap = new GMap();
             $this->gMap->addMarker(new GMapMarker(51.245475,6.821373));
             $this->gMap->addMarker(new GMapMarker(46.262248,6.115969));
 
     * In the template:
-    
+
             <?php use_helper('Javascript','GMap') ?>
-      
+
             <?php include_map($gMap,array('width'=>'512px','height'=>'400px')); ?>
-      
+
             <!-- Javascript included at the bottom of the page -->
             <?php include_map_javascript($gMap); ?>
-      
+
 
   * Sample 2
-  
+
     Geocode some addresses and open an info window if the user clicks on a marker
-    
+
     * In the action:
-    
+
             $this->gMap = new GMap();
 
             // some places in the world
@@ -73,63 +73,63 @@ Examples
               'Route Saclay 91120 Palaiseau',
               'Rämistrasse 101, Zürich'
             );
-          
+
             foreach ($addresses as $address)
             {
               $geocoded_address = $this->gMap->geocode($address);
               $gMapMarker = new GMapMarker($geocoded_address->getLat(),$geocoded_address->getLng());
-              $gMapMarker->addHtmlInfoWindow('<b>Address:</b><br />'.$address); 
+              $gMapMarker->addHtmlInfoWindow('<b>Address:</b><br />'.$address);
               $this->gMap->addMarker($gMapMarker);
             }
-      
+
     * In the template:
-    
+
             <?php use_helper('Javascript','GMap') ?>
-            
+
             <?php include_map($gMap,array('width'=>'512px','height'=>'400px')); ?>
-       
+
             <!-- Javascript included at the bottom of the page -->
             <?php include_map_javascript($gMap); ?>
 
 
   * Sample 3
-  
+
     * change the map center location and the zoom level
-    
+
     * change the zoom and movement controls used
-    
+
     * store the markers' javascript objects in a javascript array
-    
+
     * use a custom icon for the markers
-    
+
     * bind event listeners to the markers linked to custom javascript functions
-    
+
     * add custom property to the markers' javascript objects
-    
+
     * In the action:
-    
+
             // parameters: zoom level, lat, lng, options
            $this->gMap = new GMap(
                                           array(
-                                          		'zoom'=>4,
-                                          		'center_lat'=>45,
-                                          		'center_lng'=>8,
-                                          		'control'=>'new google.maps.SmallMapControl()'
+                                              'zoom'=>4,
+                                              'center_lat'=>45,
+                                              'center_lng'=>8,
+                                              'control'=>'new google.maps.SmallMapControl()'
                                           )
                               );
-      
+
             // some places in the world
-            $coordinates = array(          
+            $coordinates = array(
               array(51.245475,6.821373),
               array(46.262248,6.115969),
               array(48.848959,2.341577),
               array(48.718952,2.219180),
               array(47.376420,8.547995)
             );
-          
+
             // adds a variable "markers" defined on the global level
             $this->gMap->addGlobalVariable('markers','new Array()');
-          
+
             // creates a custom icon for markers
             $gMapIcon = new GMapIcon(
               'nice_icon',
@@ -141,8 +141,8 @@ Examples
                 'info_window_anchor_y'=>25
               )
             );
-            
-            // creates two custom event listeners 
+
+            // creates two custom event listeners
             $gMapEvent1 = new GMapEvent(
               'mouseover',
               "document.getElementById('console_div').innerHTML = 'Mouse over marker number '+this.num;"
@@ -151,7 +151,7 @@ Examples
               'mouseout',
               "document.getElementById('console_div').innerHTML = '';"
             );
-          
+
             foreach ($coordinates as $key=>$coordinate)
             {
               // parameters: lat, lng, marker's javascript object's name, icon object
@@ -162,27 +162,27 @@ Examples
               // binds the event listeners to the marker
               $gMapMarker->addEvent($gMapEvent1);
               $gMapMarker->addEvent($gMapEvent2);
-             
+
               $this->gMap->addMarker($gMapMarker);
             }
 
     * In the template:
-    
+
             <?php use_helper('Javascript','GMap') ?>
-            
+
             <?php include_map($gMap,array('width'=>'512px','height'=>'400px')); ?>
-            
+
             Search on the map:
             <?php include_search_location_form() ?>
             <br />
             <br />
             <div id="console_div" style="font-size:large"></div>
-            
+
             <!-- Javascript included at the bottom of the page -->
             <?php include_map_javascript($gMap); ?>
-      
-      
-      
+
+
+
 TODO
 ----
 

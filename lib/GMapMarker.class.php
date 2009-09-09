@@ -15,7 +15,7 @@ class GMapMarker
    */
   protected $js_name        = null;
   protected $options = array(
-    // 	Map  Map on which to display Marker.  
+    //  Map  Map on which to display Marker.  
     'map ' => null,
     // LatLng  Marker position. Required.  
     'position ' => null,
@@ -128,8 +128,8 @@ class GMapMarker
    */
   public function getOption($name)
   {
-  	
-  	return $this->options[$name];
+    
+    return $this->options[$name];
   }
   
   /**
@@ -142,7 +142,7 @@ class GMapMarker
    */
   public function setOption($name, $value)
   {
-  	$this->options[$name] = $value;
+    $this->options[$name] = $value;
   }
   
   /**
@@ -195,28 +195,28 @@ class GMapMarker
    */
   public function optionsToJs()
   {
-  	$options_array = array();
-  	foreach($this->options as $name => $value)
-  	{
-  	  if (!is_null($value))
-  	  {
-  	  	switch($name)
-  	  	{
-  	      case 'position':
-  	      case 'icon':
-  	      case 'shadow':
-  	      	$options_array[] = $name.': '.$value->toJs();
-  	      	break;
-  	      default:
-  	      	$options_array[] = $name.': '.$value;
-  	      	break;
-  	  	}
-  	  }
-  	}
-  	$tab = '  ';
-  	$separator = "\n".$tab.$tab;
-  	
-  	return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
+    $options_array = array();
+    foreach($this->options as $name => $value)
+    {
+      if (!is_null($value))
+      {
+        switch($name)
+        {
+          case 'position':
+          case 'icon':
+          case 'shadow':
+            $options_array[] = $name.': '.$value->toJs();
+            break;
+          default:
+            $options_array[] = $name.': '.$value;
+            break;
+        }
+      }
+    }
+    $tab = '  ';
+    $separator = "\n".$tab.$tab;
+    
+    return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
   }
   
   /**
@@ -227,7 +227,7 @@ class GMapMarker
   */
   public function toJs($map_js_name = 'map')
   {
-  	$this->setOption('map', $map_js_name);
+    $this->setOption('map', $map_js_name);
     if ($this->getIcon() instanceof GMapMarkerImage)
     {
       $this->setOption('icon', $this->getIcon());
@@ -240,8 +240,8 @@ class GMapMarker
     $return = '';
     if($this->info_window instanceof GMapInfoWindow)
     {
-    	$this->addEvent(new GMapEvent('click',$this->info_window->getName().".open(".$map_js_name.",".$this->getName().")"));
-    	$return = $this->info_window->toJs();
+      $this->addEvent(new GMapEvent('click',$this->info_window->getName().".open(".$map_js_name.",".$this->getName().")"));
+      $return = $this->info_window->toJs();
     }
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
     foreach ($this->custom_properties as $attribute=>$value)
@@ -277,9 +277,9 @@ class GMapMarker
    */
   public function addHtmlInfoWindow(GMapInfoWindow $info_window)
   {
-  	$this->info_window = $info_window;
+    $this->info_window = $info_window;
   }
-	
+  
   /**
    * Returns the code for the static version of Google Maps
    * @TODO Add support for color and alpha-char
@@ -357,5 +357,5 @@ class GMapMarker
   
     return $this->getGMapCoord()->isInsideBounds($gmap_bounds);
   }
-	
+  
 }
