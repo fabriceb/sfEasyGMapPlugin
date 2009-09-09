@@ -30,48 +30,85 @@ class GMapCoord
   }
   
   
-  public static function criteriaOrderByDistance($lat_col_name, $lng_col_name,$lat,$lng, $criteria = null)
+  /**
+   * 
+   * @param string $lat_col_name
+   * @param string $lng_col_name
+   * @param float $lat
+   * @param float $lng
+   * @param Criteria $criteria
+   * @return Criteria
+   * @author fabriceb
+   * @since Sep 9, 2009
+   */
+  public static function criteriaOrderByDistance($lat_col_name, $lng_col_name, $lat, $lng, $criteria = null)
   {
     if (is_null($criteria))
     {
       $criteria = new Criteria();
     }
     
-    $distance = '('.$lat_col_name.'-'.$lat.')*('.$lat_col_name.'-'.$lat.')';
-    $distance .= ' + ('.$lng_col_name.'-'.$lng.')*('.$lng_col_name.'-'.$lng.')';
-    
-    $criteria->addAsColumn('distance',$distance);
+    $distance_query = '(POW(( %s - %F ),2) + POW(( %s - %F ),2))';
+    $distance_query = sprintf($distance_query,$lat_col_name, $lat, $lng_col_name, $lng);
+        
+    $criteria->addAsColumn('distance', $distance_query);
     $criteria->addAscendingOrderByColumn('distance');
     
     return $criteria;
   }
   
-  public static function criteriaInRadius($lat_col_name, $lng_col_name,$lat,$lng,$d, $criteria = null,$order_by_distance = true)
+  /**
+   * 
+   * @param string $lat_col_name
+   * @param string $lng_col_name
+   * @param float $lat
+   * @param float $lng
+   * @param integer $distance in kms
+   * @param Criteria $criteria
+   * @param $order_by_distance
+   * @return Criteria
+   * @author maximep
+   * @since Sep 9, 2009
+   * @since 2009-09-09 fabriceb factorisation
+   */
+  public static function criteriaInRadius($lat_col_name, $lng_col_name, $lat, $lng, $distance, $criteria = null, $order_by_distance = true)
   {
     if (is_null($criteria))
     {
       $criteria = new Criteria();
     }
     
-    $distance = '('.$lat_col_name.'-'.$lat.')*('.$lat_col_name.'-'.$lat.')';
-    $distance .= ' + ('.$lng_col_name.'-'.$lng.')*('.$lng_col_name.'-'.$lng.')';
-
-    $k = rad2deg($d/self::EARTH_RADIUS);
-    $clause = $distance.' < '.$k;
+    $k = pow(rad2deg($distance/self::EARTH_RADIUS),2);
     
-    $criteria->add($lat_col_name,$clause,Criteria::CUSTOM);
+    $distance_query = 'POW(( %s - %F ),2) + POW(( %s - %F ),2) < %F';    
+    $distance_query = sprintf($distance_query,$lat_col_name, $lat, $lng_col_name, $lng, $k);
+    
+    $criteria->add($lat_col_name,$distance_query,Criteria::CUSTOM);
     
     if($order_by_distance)
     {
-    	$criteria = self::criteriaOrderByDistance($lat_col_name,$lng_col_name,$lat,$lng,$criteria);
+      $criteria = self::criteriaOrderByDistance($lat_col_name,$lng_col_name,$lat,$lng,$criteria);
     }
     
     return $criteria;
   }
   
-  public function getCriteriaInRadius($lat_col_name,$lng_col_name,$d,$c = null,$order_by_distance = true)
+  /**
+   * 
+   * @param string $lat_col_name
+   * @param string $lng_col_name
+   * @param integer $distance in kms
+   * @param Criteria $criteria
+   * @param boolean $order_by_distance
+   * @return Criteria
+   * @author maximep
+   * @since Sep 9, 2009
+   * @since 2009-09-09 fabriceb factorisation
+   */
+  public function getCriteriaInRadius($lat_col_name, $lng_col_name, $distance, $criteria = null, $order_by_distance = true)
   {
-  	return self::criteriaInRadius($lat_col_name,$lng_col_name,$this->getLatitude(),$this->getLongitude(),$d,$c,$order_by_distance);
+    
+  	return self::criteriaInRadius($lat_col_name, $lng_col_name, $this->getLatitude(), $this->getLongitude(), $distance, $criteria, $order_by_distance);
   }
   
   public function getLatitude()
@@ -79,19 +116,29 @@ class GMapCoord
 
     return $this->latitude;
   }
+  
   public function getLongitude()
   {
     
     return $this->longitude;
   }
+  
   public function setLatitude($latitude)
   {
     $this->latitude = floatval($latitude);
   }
+  
   public function setLongitude($longitude)
   {
     $this->longitude = floatval($longitude);
   }
+  
+  /**
+   * 
+   * @param $string
+   * @return GMapCoord
+   * @author fabriceb
+   */
   public static function createFromString($string)
   {
     $coord_array = explode(',',$string);
