@@ -40,6 +40,7 @@ class GMapMarker
     // number  All Markers are displayed on the map in order of their zIndex, with higher values displaying in front of Markers with lower values. By default, Markers are displayed according to their latitude, with Markers of lower latitudes appearing in front of Markers at higher latitudes.  
     'zIndex ' => null,
   );
+  protected $info_window = null;
   protected $shadow           = null;
   protected $events         = array();
   protected $custom_properties = array();
@@ -235,7 +236,13 @@ class GMapMarker
     {
       $this->setOption('shadow', $this->getShadow());
     }
+    
     $return = '';
+    if($this->info_window instanceof GMapInfoWindow)
+    {
+    	$this->addEvent(new GMapEvent('click',$this->info_window->getName().".open(".$map_js_name.",".$this->getName().")"));
+    	$return = $this->info_window->toJs();
+    }
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
     foreach ($this->custom_properties as $attribute=>$value)
     {
@@ -261,16 +268,16 @@ class GMapMarker
   /**
    * Adds an onlick listener that open a html window with some text 
    *
-   * @param string $html_text
+   * @param G
    * @author fabriceb
-   * @since Feb 20, 2009 fabriceb removed the escape_javascript function which made the plugin incompatible with symfony 1.2 
+   * @since Feb 20, 2009 fabriceb removed the escape_javascript function which made the plugin incompatible with symfony 1.2
+   * 
+   * @author Maxime Picaud
+   * @since 7 sept. 20009 Modified to correspond with new Api v3
    */
-  public function addHtmlInfoWindow($html_text)
+  public function addHtmlInfoWindow(GMapInfoWindow $info_window)
   {
-    $javascript = preg_replace('/\r\n|\n|\r/', "\\n", $html_text);
-    $javascript = preg_replace('/(["\'])/', '\\\\\1', $javascript);
-    
-    $this->addEvent(new GMapEvent('click',"this.openInfoWindowHtml('".$javascript."')"));
+  	$this->info_window = $info_window;
   }
 	
   /**
