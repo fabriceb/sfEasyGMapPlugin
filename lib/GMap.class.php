@@ -207,7 +207,7 @@ class GMap
    */
   public function setParameter($name, $value)
   {
-    $this->parameter[$name] = $value;
+    $this->parameters[$name] = $value;
   }
   /**
    * @return mixed $value
@@ -217,7 +217,7 @@ class GMap
   public function getParameter()
   {
 
-    return $this->parameter[$name];
+    return $this->parameters[$name];
   }
   /**
    * gets an instance of the interface to the Google Map web geocoding service
@@ -378,12 +378,21 @@ class GMap
     return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
   }
   
+  /**
+   * 
+   * @return unknown_type
+   * @author fabriceb
+   * @since Oct 8, 2009
+   */
   public function getOnloadJs()
   {
     switch ($this->parameters['onload_method'])
     {
       case 'jQuery':
         return 'jQuery(document).ready(function(){initialize();});';
+        break;
+      case 'prototype':
+        return 'document.observe("dom:loaded", function(){initialize();});';
         break;
       default:
       case 'js':
