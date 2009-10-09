@@ -46,7 +46,6 @@
      <file role="data" name="LICENSE" />
      <dir name="config">
         <!-- settings -->
-        <file role="data" name="app.yml" />
      </dir>
      <dir name="lib">
        <dir name="external">
@@ -68,8 +67,6 @@
      <dir name="modules">
        <dir name="sfEasyGMapPlugin">
          <file role="data" name="actions/actions.class.php" />
-         <file role="data" name="web/css/sfEasyGMapPlugin.sample.css" />
-         <file role="data" name="web/js/sfEasyGMapPlugin.sample.js" />
      <file role="data" name="config/view.yml" />
          <file role="data" name="templates/sample1Success.php" />
      <file role="data" name="templates/indexSuccess.php" />
@@ -92,6 +89,7 @@
        <dir name="css">
          <!-- images -->
          <file role="data" name="sfEasyGMapPlugin.css" />
+         <file role="data" name="sfEasyGMapPlugin.sample.css" />
        </dir>
        <dir name="images">
          <!-- images -->
@@ -100,6 +98,7 @@
        <dir name="js">
          <!-- javascripts -->
          <file role="data" name="sfEasyGMapPlugin.js" />
+         <file role="data" name="sfEasyGMapPlugin.sample.js" />
        </dir>
      </dir>
    </dir>
