@@ -1,0 +1,117 @@
+body
+{
+  font-family: 'Verdana';
+  font-size: 11px;
+}
+
+a, a:active
+{
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover
+{
+  text-decoration: none;
+  color: #666666;
+}
+
+.link-to-sample
+{
+  font-weight: bold;
+}
+
+.sample-message
+{
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.sample-title
+{
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#action_source,
+#generated-js
+{
+  display: none;
+  padding: 5px;
+  border: #000000 solid 1px;
+  min-width: 400px;
+  max-width: 600px;
+  background-color: #EEEEEE;
+  margin: 5px 0px 0px 11px;
+  overflow: auto;
+}
+
+.sample-map
+{
+  float: left;
+}
+
+.sample-sources
+{
+  float: left;
+  margin-left: 15px;
+}
+
+#sample-source-js
+{
+  margin-top: 10px;
+}
+
+.sample-comment
+{
+  color: #3AAF00;
+}
+
+#console_div
+{
+  margin-top: 5px;
+  border: #000000 solid 1px;
+  padding: 2px;
+  height: 100px;
+  overflow: auto;
+  width: 505px;
+}
+
+#console_div div.line span.begin-line
+{
+  font-weight: bold;
+  padding-right: 2px;
+}
+
+#map-search
+{
+  margin-bottom: 5px;
+}
+
+.console
+{
+  margin-top: 5px;
+}
+
+.console #console_title
+{
+  font-weight: bold;
+}
+
+.console #console_div
+{
+  min-height: 15px;
+}
+
+#map_search_title,
+#map_search_form
+{
+  float: left;
+}
+
+#map_search_form input
+{
+  margin-left: 5px;
+}

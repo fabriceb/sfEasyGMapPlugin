@@ -1,2 +1,10 @@
 all:
   stylesheets: [/sfEasyGMapPlugin/css/sfEasyGMapPlugin.css]
+  
+sample1Success:
+  javascripts: [/sfEasyGMapPlugin/js/sfEasyGMapPlugin.sample.js]
+  stylesheets: [/sfEasyGMapPlugin/css/sfEasyGMapPlugin.sample.css]
+
+indexSuccess:
+  javascripts: [/sfEasyGMapPlugin/js/sfEasyGMapPlugin.sample.js]
+  stylesheets: [/sfEasyGMapPlugin/css/sfEasyGMapPlugin.sample.css]

@@ -1,7 +1,7 @@
-<h1>The Map</h1>
+<div class="sample-title">Samples list</div>
 
 <ul>
-  <li><?php echo link_to('Sample 1','sfEasyGMapPlugin/sample1') ?></li>
-  <li><?php echo link_to('Sample 2','sfEasyGMapPlugin/sample2') ?></li>
-  <li><?php echo link_to('Sample 3','sfEasyGMapPlugin/sample3') ?></li>
+  <?php foreach ($available_samples as $sample): ?>
+    <li><?php echo link_to('<span class="link-to-sample">'.$sample['name'].'</span> : '.$sample['message'], $sample['url']) ?></li>
+  <?php endforeach; ?>
 </ul>

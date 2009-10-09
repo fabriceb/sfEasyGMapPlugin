@@ -31,11 +31,14 @@ Installation
 Examples
 --------
 
-  All samples are available in the sfEasyGMapPlugin module of the plugin
+  All samples are available in the sfEasyGMapPlugin module of the plugin (/sfEasyGMapPlugin/index)
 
   IMPORTANT ! The javascript in the samples will not work unless you put the js files in your web directory.
 
         $ ln -s ../plugins/sfEasyGMapPlugin/web web/sfEasyGMapPlugin
+        
+        or use the symfony command :
+        $ php symfony plugin:publish-assets 
 
   * Sample 1
 

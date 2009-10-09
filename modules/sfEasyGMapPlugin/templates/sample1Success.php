@@ -1,16 +1,50 @@
 <?php use_helper('Javascript','GMap') ?>
 
-<h1>The Map</h1>
-<?php include_map($gMap); ?>
-
-Search on the map:
-<?php include_search_location_form() ?>
-<br />
-<br />
-<br />
-<div id="console_div" style="font-size:large">
+<div class="sample-message">
+  <a href="/sfEasyGMapPlugin/index">Samples list</a> > <?php echo $message ?>
 </div>
 
-<br />
+<div>
+  <div class="sample-map">
+    <div id="map-search">
+      <div id="map_search_title">
+        Search on the map :
+      </div>
+      
+      <div id="map_search_form">
+        <?php include_search_location_form() ?>
+      </div>
+      
+      <div style="clear: both;"></div>
+    </div>
+  
+    <?php include_map($gMap); ?>
+    
+    <div class="console">
+      <span id="console_title">Console</span>
+      <div id="console_div"></div>
+    </div>
+  </div>
+
+  <div class="sample-sources">
+    <div id="sample-source-action">
+      <a href="#" onclick="gmapSample_Toggle('action_source');">&bull; <?php echo "Display/Hide action source" ?></a>
+      
+      <div id="action_source">
+        <?php echo preg_replace('/.*(\/\/.*)<br \/>.*/', '<span class="sample-comment">$0</span>', nl2br($action_source)) ?>
+      </div>
+    </div>
+    
+    <div id="sample-source-js">
+      <a href="#" onclick="gmapSample_Toggle('generated-js');">&bull; <?php echo "Display/Hide generated javascript" ?></a>
+      
+      <div id="generated-js">
+        <?php echo preg_replace('/.*(\/\/.*)<br \/>.*/', '<span class="sample-comment">$0</span>', nl2br($generated_js)) ?>
+      </div>
+    </div>
+  </div>
+  
+  <div style="clear: both;"></div>
+</div>
 <!-- Javascript included at the bottom of the page -->
 <?php include_map_javascript($gMap); ?>
