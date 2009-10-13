@@ -240,8 +240,7 @@ class GMapMarker
     $return = '';
     if($this->info_window instanceof GMapInfoWindow)
     {
-      $this->addEvent(new GMapEvent('click',$this->info_window->getName().".open(".$map_js_name.",".$this->getName().");"));
-      $return = $this->info_window->toJs();
+      $return .= $this->info_window->toJs();
     }
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
     foreach ($this->custom_properties as $attribute=>$value)
@@ -278,6 +277,7 @@ class GMapMarker
   public function addHtmlInfoWindow(GMapInfoWindow $info_window)
   {
     $this->info_window = $info_window;
+    $this->addEvent(new GMapEvent('click',$this->info_window->getName().".open(".$map_js_name.",".$this->getName().");"));
   }
   
   /**
