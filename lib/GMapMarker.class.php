@@ -281,6 +281,17 @@ class GMapMarker
   }
   
   /**
+  * @return GMapInfoWindow
+  * @author fabriceb
+  * @since Oct 13, 2009
+  */
+  public function getHtmlInfoWindow()
+  {
+  
+    return $this->info_window;
+  }
+  
+  /**
    * Returns the code for the static version of Google Maps
    * @TODO Add support for color and alpha-char
    * @author Laurent Bachelier
