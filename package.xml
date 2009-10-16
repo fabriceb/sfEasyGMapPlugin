@@ -20,19 +20,19 @@
   <name>Laurent Bachelier</name>
   <user>laurentb</user>
   <email>laurentb@theodo.fr</email>
-  <active>yes</active>  
+  <active>yes</active>
  </developer>
  <developer>
   <name>Tom Haskins-Vaughan</name>
   <user>tsmTom</user>
   <email>tom@templestreetmedia.com</email>
-  <active>yes</active>  
+  <active>yes</active>
  </developer>
  <date>2009-05-03</date>
  <time>18:30:00</time>
  <version>
-  <release>1.0.3</release>
-  <api>1.0.3</api>
+  <release>1.0.4</release>
+  <api>1.0.4</api>
  </version>
  <stability>
   <release>stable</release>
@@ -51,7 +51,7 @@
        <dir name="external">
          <!-- helpers -->
          <file role="data" name="RenderTag.class.php" />
-       </dir>       
+       </dir>
        <dir name="helper">
          <!-- helpers -->
          <file role="data" name="GMapHelper.php" />
@@ -83,7 +83,7 @@
          <file role="data" name="GMapBoundsTest.php" />
      <file role="data" name="GMapCoordTest.php" />
      <file role="data" name="GMapTest.php" />
-       </dir>    
+       </dir>
      </dir>
      <dir name="web">
        <dir name="css">
@@ -94,7 +94,7 @@
        <dir name="images">
          <!-- images -->
          <file role="data" name="nice_icon.png" />
-       </dir>    
+       </dir>
        <dir name="js">
          <!-- javascripts -->
          <file role="data" name="sfEasyGMapPlugin.js" />
@@ -134,7 +134,7 @@
     <license uri="http://www.symfony-project.org/license">MIT license</license>
     <notes>
  * removed the call to the Helper Tag to use the escape_javascript function to ensure symfony 1.2 compatibility
-    </notes>    
+    </notes>
   </release>
   <release>
    <version>
@@ -151,7 +151,7 @@
 * The GMap constructor now takes an option array as first parameter
 * added some unit tests
 * added some very interesting functions concerning bounds : Smallest bound containing coords, homthety transformation, zoomOut, Propel criteria "In bounds"
-* added some very interesting functions concerning coordinates : you can now transform lat/lng into Google Map' pixels coordinates system and vice-versa. This enables one to calculate the bounds around a coordinate for example, knowing only the Google Map's height/width in pixels    
+* added some very interesting functions concerning coordinates : you can now transform lat/lng into Google Map' pixels coordinates system and vice-versa. This enables one to calculate the bounds around a coordinate for example, knowing only the Google Map's height/width in pixels
    </notes>
   </release>
   <release>
@@ -166,8 +166,8 @@
    <license uri="http://www.symfony-project.org/license">MIT license</license>
    <notes>
 * fabriceb: Corrected the package.xml to add all 1.2.x versions of symfony to the list of compatible versions
-   </notes>    
-  </release>    
+   </notes>
+  </release>
   <release>
     <version>
      <release>1.0.2</release>
@@ -184,7 +184,7 @@
 * Created tests for the Mercator projections
 * Added the GMapBounds::getBoundsContainingMarkers($markers) function
 * Added the GMap::centerAndZoomOnMarkers() function which enables to guess zoom and center of the map to fit the markers. Center is easy to guess. Zoom uses width and height of smallest bound, pixel width and height of the map and Mercator projection
-   </notes>    
+   </notes>
   </release>
   <release>
     <version>
@@ -199,7 +199,24 @@
    <notes>
 * Added tomr's contribution: it is now possible to add multiple controls to the map
 * Also bundled with GMapCoord::distance($coord1, $coord2) function which gives an estimation of the distance between two coordinates
-   </notes>    
+   </notes>
+  </release>
+  <release>
+    <version>
+     <release>1.0.4</release>
+     <api>1.0.4</api>
+    </version>
+    <stability>
+     <release>stable</release>
+     <api>stable</api>
+    </stability>
+    <license uri="http://www.symfony-project.org/license">MIT license</license>
+    <notes>
+* Added a very practical function $gMap->getBoundsFromCenterAndZoom(...) which enables one to calculate server-side the bounds corresponding to specific center coordinates, zoom, and map size. This is the equivalent client-side of map.setCenter(...,...);map.setZoom(...);map.getBounds(); It uses Mercator projection formulas as used by the Google Maps
+* A new function function $gMapMarker->isInsideBounds($bounds)
+* Corresponding Unit tests
+* And a new sample using the two last functionalities
+   </notes>
   </release>
  </changelog>
 </package>
