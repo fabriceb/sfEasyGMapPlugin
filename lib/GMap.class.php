@@ -82,7 +82,8 @@ class GMap
   
   protected $parameters = array(
       'js_name' => 'map',
-      'onload_method' => 'js'
+      'onload_method' => 'js',
+      'api_keys' => null
   );
 
   // id of the Google Map div container
@@ -106,7 +107,7 @@ class GMap
   protected $global_variables=array();
 
   // the interface to the Google Maps API web service
-  protected $gMapClient = false;
+  protected $gMapClient = false;  
 
   /**
    * Constructs a Google Map PHP object
@@ -226,11 +227,11 @@ class GMap
    * @author fabriceb
    * @since 2009-06-17
    */
-  public function getGMapClient()
+  public function getGMapClient($api_key = null)
   {
-    if ($this->gMapClient===false)
+    if ($this->gMapClient === false)
     {
-      $this->gMapClient = new GMapClient();
+      $this->gMapClient = new GMapClient($api_key, $this->parameters['api_keys']);
     }
 
     return $this->gMapClient;
@@ -882,4 +883,16 @@ class GMap
     return GMapBounds::getBoundsFromCenterAndZoom($this->getCenterCoord(),$this->getZoom(),$this->getWidth(),$this->getHeight());
   }
 
+  /**
+   * backwards compatibility
+   * @param string[] $api_keys
+   * @return string
+   * @author fabriceb
+   * @since Jun 17, 2009 fabriceb
+   */
+  public static function guessAPIKey($api_keys = null)
+  {
+
+    return GMapClient::guessAPIKey($api_keys);
+  }
 }

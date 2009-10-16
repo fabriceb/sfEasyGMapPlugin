@@ -12,6 +12,7 @@ class sfEasyGMapPluginActions extends sfActions
       '4' => array('url' => 'sfEasyGMapPlugin/sample4', 'name' => 'Sample 4', 'message' => 'How to center the map on a tag cloud.'),
       '5' => array('url' => 'sfEasyGMapPlugin/sample5', 'name' => 'Sample 5', 'message' => 'Center the map on a given map and display inside markers.'),
       '6' => array('url' => 'sfEasyGMapPlugin/sample6', 'name' => 'Sample 6', 'message' => 'How to set a custom marker.'),
+      '7' => array('url' => 'sfEasyGMapPlugin/sample7', 'name' => 'Sample 7', 'message' => 'GMapGeocodedAddress sample.'),
     );
   }
 
@@ -232,11 +233,47 @@ class sfEasyGMapPluginActions extends sfActions
     $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
   
+  /**
+   * GMapGeocodedAddress sample
+   *
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-16 15:25:11
+   */
+  public function executeSample7()
+  {
+    // Initialize the google map
+    $this->gMap = new GMap();
+    $this->gMap->setWidth(512);
+    $this->gMap->setHeight(400);
+    $this->gMap->setZoom(16);
+
+    $sample_address = '60 rue de Seine, 75006 Paris, France';
+    
+    // Create geocoded address
+    $geocoded_address = new GMapGeocodedAddress($sample_address);
+    $geocoded_address->geocode($this->gMap->getGMapClient());
+    
+    // Center the map on geocoded address
+    $this->gMap->setCenter($geocoded_address->getLat(), $geocoded_address->getLng());
+    
+    // Add marker on geocoded address
+    $this->gMap->addMarker(
+      new GMapMarker($geocoded_address->getLat(), $geocoded_address->getLng())
+    );
+
+    $this->setTemplate('sample1');
+
+    // END OF ACTION
+    $this->message = 'Display a marker on geocoded address "'.$sample_address.'" and center the map.';
+    $this->action_source = $this->functionToString('executeSample7');
+    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
+  }
+  
   function functionToString($function_name)
   {
     $text = file_get_contents(__FILE__);
     preg_match('/function '.$function_name.'\(\)\n  \{\n(.*)\n    \/\/ END OF ACTION$/msU', $text, $matches);
-    
+
     return str_replace('&nbsp;&nbsp;&nbsp;&nbsp;' , '', str_replace(' ', '&nbsp;', $matches[1]));
   }
 }
