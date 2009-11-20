@@ -13,6 +13,7 @@ class sfEasyGMapPluginActions extends sfActions
       '5' => array('url' => 'sfEasyGMapPlugin/sample5', 'name' => 'Sample 5', 'message' => 'Center the map on a given map and display inside markers.'),
       '6' => array('url' => 'sfEasyGMapPlugin/sample6', 'name' => 'Sample 6', 'message' => 'How to set a custom marker.'),
       '7' => array('url' => 'sfEasyGMapPlugin/sample7', 'name' => 'Sample 7', 'message' => 'GMapGeocodedAddress sample.'),
+      '8' => array('url' => 'sfEasyGMapPlugin/sample8', 'name' => 'Sample 8', 'message' => 'GMapDirection sample.'),
     );
   }
 
@@ -266,6 +267,50 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Display a marker on geocoded address "'.$sample_address.'" and center the map.';
     $this->action_source = $this->functionToString('executeSample7');
+    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
+  }
+  
+  /**
+   * GMapDirection sample
+   * 
+   * @param sfWebRequest $request
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-30 17:30:11
+   */
+  public function executeSample8()
+  {
+    // Initialize the google map
+    $this->gMap = new GMap();
+    $this->gMap->setWidth(512);
+    $this->gMap->setHeight(400);
+    $this->gMap->setZoom(6);
+    $this->gMap->setCenter(47.1224758, 1.36230468);
+    
+    // Paris coordinates
+    $paris = new GMapCoord(48.857939, 2.346611);
+    
+    // Bordeaux coordinates
+    $bordeaux = new GMapCoord(44.837368, -0.576144); 
+    
+    $dijon = new GMapCoord(47.327213, 5.043988);
+    $lyon  = new GMapCoord(45.767299, 4.834329);
+
+    // Waypoint samples
+    $waypoints = array(
+      new GMapDirectionWaypoint($dijon),
+      new GMapDirectionWaypoint($lyon, false)
+    );
+    
+    // Initialize GMapDirection
+    $direction = new GMapDirection($paris, $bordeaux, 'direction_sample', array('waypoints' => $waypoints, 'panel' => "document.getElementById('direction_pane')"));
+    $this->gMap->addDirection($direction);
+    
+    $this->setTemplate('sample1');
+
+    // END OF ACTION
+    $this->view_panel = true;
+    $this->message = 'GMapDirection sample from Paris to Bordeaux';
+    $this->action_source = $this->functionToString('executeSample8');
     $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
   

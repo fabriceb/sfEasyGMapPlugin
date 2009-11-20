@@ -29,6 +29,10 @@ if (!class_exists('GMapMarker', true))
 {
   require_once(dirname(__FILE__).'/GMapMarker.class.php');
 }
+if (!class_exists('GMapDirection', true))
+{
+  require_once(dirname(__FILE__).'/GMapDirection.class.php');
+}
 if (!class_exists('RenderTag', true))
 {
   require_once(dirname(__FILE__).'/external/RenderTag.class.php');
@@ -101,6 +105,7 @@ class GMap
   protected $icons=array();
   protected $markers=array();
   protected $events=array();
+  protected $directions=array();
 
   // customise the javascript generated
   protected $after_init_js=array();
@@ -426,6 +431,7 @@ class GMap
     $init_events[] = $this->getEventsJs();
     $init_events[] = $this->getIconsJs();
     $init_events[] = $this->getMarkersJs();
+    $init_events[] = $this->getDirectionsJs();
     foreach ($this->after_init_js as $after_init)
     {
       $init_events[] = $after_init;
@@ -894,5 +900,67 @@ class GMap
   {
 
     return GMapClient::guessAPIKey($api_keys);
+  }
+  
+  /**
+   * $directions getter
+   *
+   * @return array $directions
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 17:18:29
+   */
+  public function getDirections()
+  {
+    
+    return $this->directions;
+  }
+  
+  /**
+   * $directions setter
+   *
+   * @param array $directions
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 17:21:18
+   */
+  public function setDirections($directions = null)
+  {
+    $this->directions = $directions;
+  }
+  
+  /**
+   * Add direction to list ($this->directions)
+   *
+   * @param GMapDirection $directions
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-20 14:59:55
+   */
+  public function addDirection($direction = null)
+  {
+    if (!$direction instanceof GMapDirection)
+    {
+      throw new sfException('The direction must be an instance of GMapDirection !');
+    }
+    
+    array_push($this->directions, $direction);
+  }
+  
+  /**
+   * Get the directions javascript code
+   *
+   * @return string $js_code
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-20 15:03:00
+   */
+  public function getDirectionsJs()
+  {
+    $js_code = '';
+    
+    foreach ($this->directions as $direction)
+    {
+      $js_code .= $direction->toJs($this->getJsName());
+      $js_code .= "\n      ";
+    }
+
+    return $js_code;
   }
 }

@@ -26,9 +26,9 @@
     </div>
   </div>
 
-  <div class="sample-sources">
+  <div class="sample-sources">  
     <div id="sample-source-action">
-      <a href="#" onclick="gmapSample_Toggle('action_source');">&bull; <?php echo "Display/Hide action source" ?></a>
+      <a href="#" onclick="gmapSample_Toggle('action_source'); return false;">&bull; <?php echo "Display/Hide action source" ?></a>
       
       <div id="action_source">
         <?php echo preg_replace('/.*(\/\/.*)<br \/>.*/', '<span class="sample-comment">$0</span>', nl2br($action_source)) ?>
@@ -36,12 +36,19 @@
     </div>
     
     <div id="sample-source-js">
-      <a href="#" onclick="gmapSample_Toggle('generated-js');">&bull; <?php echo "Display/Hide generated javascript" ?></a>
+      <a href="#" onclick="gmapSample_Toggle('generated-js'); return false;">&bull; <?php echo "Display/Hide generated javascript" ?></a>
       
       <div id="generated-js">
         <?php echo preg_replace('/.*(\/\/.*)<br \/>.*/', '<span class="sample-comment">$0</span>', nl2br($generated_js)) ?>
       </div>
     </div>
+    
+    <?php if (isset($view_panel)): ?>
+      <div id="sample-direction-pane">
+        <div id="direction_pane">
+        </div>
+      </div>
+    <?php endif; ?>
   </div>
   
   <div style="clear: both;"></div>

@@ -12,7 +12,7 @@ var moveToMarker = function ()
 var gmapSample_Toggle = function (id)
 {
   var current_display = document.getElementById(id).style.display;
-  
+
   if (current_display == 'block')
   {
     document.getElementById(id).style.display = 'none';

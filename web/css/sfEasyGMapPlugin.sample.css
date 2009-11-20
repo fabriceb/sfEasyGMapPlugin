@@ -48,6 +48,16 @@ a:hover
   overflow: auto;
 }
 
+#direction_pane
+{
+  display: block;
+  min-width: 400px;
+  max-width: 600px;
+  padding: 5px;
+  margin: 5px 0px 0px 11px;
+  overflow: auto;
+}
+
 .sample-map
 {
   float: left;
