@@ -777,7 +777,7 @@ class GMap
     $params = array(
       'maptype' => $maptype,
       'zoom'    => $this->getZoom(),
-      'key'     => $this->getAPIKey(),
+      'key'     => $this->guessAPIKey(),
       'center'  => $this->getCenterLat().','.$this->getCenterLng(),
       'size'    => $this->getWidth().'x'.$this->getHeight(),
       'hl'      => $hl,
