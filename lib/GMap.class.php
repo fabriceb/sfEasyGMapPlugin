@@ -220,9 +220,8 @@ class GMap
    * @author fabriceb
    * @since 2009-08-21
    */
-  public function getParameter()
+  public function getParameter($name)
   {
-
     return $this->parameters[$name];
   }
   /**
