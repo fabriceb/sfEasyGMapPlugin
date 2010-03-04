@@ -6,14 +6,16 @@ class sfEasyGMapPluginActions extends sfActions
   public function executeIndex()
   {
     $this->available_samples = array(
-      '1' => array('url' => 'sfEasyGMapPlugin/sample1', 'name' => 'Sample 1', 'message' => 'Simple map with some markers, using longitudes and latitudes.'),
-      '2' => array('url' => 'sfEasyGMapPlugin/sample2', 'name' => 'Sample 2', 'message' => 'Basic events on marker and map.'),
-      '3' => array('url' => 'sfEasyGMapPlugin/sample3', 'name' => 'Sample 3', 'message' => 'Basic GMapInfoWindow sample.'),
-      '4' => array('url' => 'sfEasyGMapPlugin/sample4', 'name' => 'Sample 4', 'message' => 'How to center the map on a tag cloud.'),
-      '5' => array('url' => 'sfEasyGMapPlugin/sample5', 'name' => 'Sample 5', 'message' => 'Center the map on a given map and display inside markers.'),
-      '6' => array('url' => 'sfEasyGMapPlugin/sample6', 'name' => 'Sample 6', 'message' => 'How to set a custom marker.'),
-      '7' => array('url' => 'sfEasyGMapPlugin/sample7', 'name' => 'Sample 7', 'message' => 'GMapGeocodedAddress sample.'),
-      '8' => array('url' => 'sfEasyGMapPlugin/sample8', 'name' => 'Sample 8', 'message' => 'GMapDirection sample.'),
+      '1'  => array('url' => 'sfEasyGMapPlugin/sample1', 'name' => 'Sample 1', 'message' => 'Simple map with some markers, using longitudes and latitudes.'),
+      '2'  => array('url' => 'sfEasyGMapPlugin/sample2', 'name' => 'Sample 2', 'message' => 'Basic events on marker and map.'),
+      '3'  => array('url' => 'sfEasyGMapPlugin/sample3', 'name' => 'Sample 3', 'message' => 'Basic GMapInfoWindow sample.'),
+      '4'  => array('url' => 'sfEasyGMapPlugin/sample4', 'name' => 'Sample 4', 'message' => 'How to center the map on a marker cloud.'),
+      '5'  => array('url' => 'sfEasyGMapPlugin/sample5', 'name' => 'Sample 5', 'message' => 'Center the map on a given map and display inside markers.'),
+      '6'  => array('url' => 'sfEasyGMapPlugin/sample6', 'name' => 'Sample 6', 'message' => 'How to set a custom marker.'),
+      '7'  => array('url' => 'sfEasyGMapPlugin/sample7', 'name' => 'Sample 7', 'message' => 'GMapGeocodedAddress sample.'),
+      '8'  => array('url' => 'sfEasyGMapPlugin/sample8', 'name' => 'Sample 8', 'message' => 'GMapDirection sample.'),
+      '9'  => array('url' => 'sfEasyGMapPlugin/sample9', 'name' => 'Sample 9', 'message' => 'Reverse geocoding sample.'),
+      '10' => array('url' => 'sfEasyGMapPlugin/sample10', 'name' => 'Sample 10', 'message' => 'Multiple info windows'),
     );
   }
 
@@ -50,7 +52,6 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Simple google map with markers';
     $this->action_source = $this->functionToString('executeSample1');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
 
 
@@ -86,7 +87,6 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Simple events : <br /> - click marker to focus on<br /> - click on the map for test map event';
     $this->action_source = $this->functionToString('executeSample2');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
 
 
@@ -118,7 +118,6 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Simple GMapInfoWindow : click marker to open info window';
     $this->action_source = $this->functionToString('executeSample3');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
 
   /**
@@ -155,7 +154,6 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Center the map on the markers.';
     $this->action_source = $this->functionToString('executeSample4');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
 
   /**
@@ -195,7 +193,6 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Center the map on a given place and display only inside markers.';
     $this->action_source = $this->functionToString('executeSample5');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
 
   /**
@@ -231,7 +228,6 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Custom marker.';
     $this->action_source = $this->functionToString('executeSample6');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
   
   /**
@@ -267,7 +263,6 @@ class sfEasyGMapPluginActions extends sfActions
     // END OF ACTION
     $this->message = 'Display a marker on geocoded address "'.$sample_address.'" and center the map.';
     $this->action_source = $this->functionToString('executeSample7');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
   }
   
   /**
@@ -311,7 +306,101 @@ class sfEasyGMapPluginActions extends sfActions
     $this->view_panel = true;
     $this->message = 'GMapDirection sample from Paris to Bordeaux';
     $this->action_source = $this->functionToString('executeSample8');
-    $this->generated_js = str_replace(' ', '&nbsp;', preg_replace('/^\n(.*)/', '$1', $this->gMap->getJavascript()));
+  }
+
+  /**
+   * Reverse geocoding sample
+   *
+   * @param sfWebRequest $request
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-30 17:30:11
+   */
+  public function executeSample9()
+  {
+    // Initialize the google map
+    $this->gMap = new GMap();
+    $this->gMap->setWidth(512);
+    $this->gMap->setHeight(400);
+    $this->gMap->setZoom(16);
+    $this->gMap->setCenter(48.857939, 2.346611);
+
+    // Marker
+    $marker = new GMapMarker($this->gMap->getCenterLat(), $this->gMap->getCenterLng());
+    $this->gMap->addMarker($marker);
+
+    // Reverse geocoding of the center of the map
+    $geocoded_addr = new GMapGeocodedAddress(null);
+    $geocoded_addr->setLat($this->gMap->getCenterLat());
+    $geocoded_addr->setLng($this->gMap->getCenterLng());
+    $geocoded_addr->reverseGeocode($this->gMap->getGMapClient());
+
+    $this->setTemplate('sample1');
+
+    // END OF ACTION
+    $this->message = 'Reverse geocoding sample';
+    $this->action_source = $this->functionToString('executeSample9');
+
+    // Construct console message
+    $values = array(
+      'Reverse geocoding of coordinates \"'.$this->gMap->getCenterLat().', '.$this->gMap->getCenterLng().'\" : ',
+      '<i>raw_address : </i>'.$geocoded_addr->getRawAddress(),
+      '<i>accuracy : </i>'.$geocoded_addr->getAccuracy(),
+      '<i>geocoded_city : </i>'.$geocoded_addr->getGeocodedCity(),
+      '<i>geocoded_country_code : </i>'.$geocoded_addr->getGeocodedCountryCode(),
+      '<i>geocoded_country : </i>'.$geocoded_addr->getGeocodedCountry(),
+      '<i>geocoded_address : </i>'.$geocoded_addr->getGeocodedAddress(),
+      '<i>geocoded_street : </i>'.$geocoded_addr->getGeocodedStreet(),
+      '<i>geocoded_postal_code : </i>'.$geocoded_addr->getGeocodedPostalCode(),
+    );
+
+    foreach ($values as $value)
+    {
+      $this->gMap->addAfterInitJs('gmapSample_AddConsoleLine("'.$value.'");');
+    }
+  }
+
+  /**
+   * Multiple GMapInfoWindow sample
+   *
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2010-03-04
+   */
+  public function executeSample10()
+  {
+    // Initialize the google map
+    $gMap = new GMap();
+
+    $markers = array(
+      new GMapMarker(51.245475, 6.821373),
+      new GMapMarker(46.262248, 6.115969),
+      new GMapMarker(48.848959, 2.341577),
+      new GMapMarker(48.718952, 2.219180),
+      new GMapMarker(47.376420, 8.547995),
+    );
+
+    foreach($markers as $marker)
+    {
+      // Reverse geocoding of the center of the map
+      $geocoded_addr = new GMapGeocodedAddress(null);
+      $geocoded_addr->setLat($marker->getLat());
+      $geocoded_addr->setLng($marker->getLng());
+      $geocoded_addr->reverseGeocode($gMap->getGMapClient());
+
+      $info_window = new GMapInfoWindow('<div>'.$geocoded_addr->getRawAddress().'</div>');
+      $marker->addHtmlInfoWindow($info_window);
+      $gMap->addMarker($marker);
+    }
+
+    // Center the map on marker width 0.3 margin
+    $gMap->centerAndZoomOnMarkers(0.3);
+
+    $this->gMap = $gMap;
+
+    $this->setTemplate('sample1');
+
+    // END OF ACTION
+    $this->message = 'Multiple info window : click marker to open info window';
+    $this->action_source = $this->functionToString('executeSample10');
   }
   
   function functionToString($function_name)

@@ -53,8 +53,10 @@ class GMapMarker
    * @param GmapEvent[] array of GoogleMap Events linked to the marker
    * @author Fabrice Bernhard
    */
-  public function __construct($lat,$lng,$options = array(),$js_name='marker',$events=array())
+  public function __construct($lat,$lng,$options = array(), $js_name = null,$events=array())
   {
+    $js_name = $js_name ? $js_name : 'marker_'.uniqid();
+
     $this->js_name = $js_name;
     $this->setOptions($options);
     $this->setGMapCoord(new GMapCoord($lat,$lng));
@@ -238,11 +240,15 @@ class GMapMarker
     }
     
     $return = '';
+
     if($this->info_window instanceof GMapInfoWindow)
     {
-      $this->addEvent(new GMapEvent('click',$this->info_window->getName().".open(".$map_js_name.",".$this->getName().");"));
-      $return .= $this->info_window->toJs();
+      $this->addEvent(new GMapEvent(
+        'click',
+        $this->info_window->toJs()."\n      ".$this->info_window->getName().".open(".$map_js_name.", ".$this->getName().");"
+      ));
     }
+    
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
     foreach ($this->custom_properties as $attribute=>$value)
     {
@@ -252,7 +258,7 @@ class GMapMarker
     {
       $return .= '    '.$event->getEventJs($this->getName())."\n";
     }   
-    
+
     return $return;
   }
   

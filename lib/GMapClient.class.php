@@ -255,5 +255,20 @@ class GMapClient
     $js_url = self::JS_URL;
 
     return $js_url;
-  } 
+  }
+
+  /**
+   * Reverse geocoding info
+   *
+   * @return string
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2010-03-04
+   */
+  public function getReverseGeocodingInfo($lat, $lng)
+  {
+    $apiURL = 'http://maps.google.com/maps/geo?ll='.$lat.','.$lng;
+    $raw_data = file_get_contents($apiURL);
+
+    return $raw_data;
+  }
 }

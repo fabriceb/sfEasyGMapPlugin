@@ -193,7 +193,7 @@ class GMapDirection
       throw new sfException('$name can\'t be "null" !');
     }
     
-    $this->option[$name] = $value;
+    $this->options[$name] = $value;
   }
   
   /**

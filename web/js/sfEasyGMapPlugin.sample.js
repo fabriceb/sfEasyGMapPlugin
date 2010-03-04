@@ -33,7 +33,7 @@ var gmapSample_AddConsoleLine = function (content)
   var inner_console = document.getElementById('console_div').innerHTML;
   var line = '<div class="line">' + time + ' <span class="begin-line">></span>' + content + '</div>';
   
-  console.innerHTML = line + inner_console;
+  console.innerHTML = inner_console + line;
   
   return false;
 }

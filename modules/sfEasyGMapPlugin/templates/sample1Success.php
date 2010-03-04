@@ -1,5 +1,3 @@
-<?php use_helper('Javascript','GMap') ?>
-
 <div class="sample-message">
   <a href="/sfEasyGMapPlugin/index">Samples list</a> > <?php echo $message ?>
 </div>
@@ -31,15 +29,7 @@
       <a href="#" onclick="gmapSample_Toggle('action_source'); return false;">&bull; <?php echo "Display/Hide action source" ?></a>
       
       <div id="action_source">
-        <?php echo preg_replace('/.*(\/\/.*)<br \/>.*/', '<span class="sample-comment">$0</span>', nl2br($action_source)) ?>
-      </div>
-    </div>
-    
-    <div id="sample-source-js">
-      <a href="#" onclick="gmapSample_Toggle('generated-js'); return false;">&bull; <?php echo "Display/Hide generated javascript" ?></a>
-      
-      <div id="generated-js">
-        <?php echo preg_replace('/.*(\/\/.*)<br \/>.*/', '<span class="sample-comment">$0</span>', nl2br($generated_js)) ?>
+        <?php echo preg_replace('/.*(\/\/.*)<br \/>.*/', '<span class="sample-comment">$0</span>', htmlspecialchars_decode(nl2br($action_source))) ?>
       </div>
     </div>
     

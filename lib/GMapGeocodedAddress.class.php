@@ -68,6 +68,36 @@ class GMapGeocodedAddress
   }
 
   /**
+   * Reverse geocoding
+   *
+   * @return integer
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2010-03-04
+   */
+  public function reverseGeocode($gmap_client)
+  {
+    $raw_data = $gmap_client->getReverseGeocodingInfo($this->getLat(), $this->getLng());
+    $geocoded_array = json_decode($raw_data, true);
+
+    if ($geocoded_array['Status']['code'] != 200)
+    {
+
+      return false;
+    }
+
+    $this->raw_address           = $geocoded_array['Placemark'][0]['address'];
+    $this->accuracy              = $geocoded_array['Placemark'][0]['AddressDetails']['Accuracy'];
+    $this->geocoded_city         = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['LocalityName'];
+    $this->geocoded_country_code = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['CountryNameCode'];
+    $this->geocoded_country      = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['CountryName'];
+    $this->geocoded_address      = $geocoded_array['Placemark'][0]['address'];
+    $this->geocoded_street       = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['Thoroughfare']['ThoroughfareName'];
+    $this->geocoded_postal_code  = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['PostalCode']['PostalCodeNumber'];
+
+    return $this->accuracy;
+  }
+
+  /**
    * Geocodes the address using the Google Maps XML webservice, which has more information.
    * Unknown values will be set to NULL.
    * @param GMapClient $gmap_client

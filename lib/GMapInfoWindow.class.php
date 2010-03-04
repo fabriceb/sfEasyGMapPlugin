@@ -179,9 +179,9 @@ class GMapInfoWindow
       }
     }
     $tab = '  ';
-    $separator = "\n".$tab.$tab;
+    $separator = "\n  ".$tab.$tab;
     
-    return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
+    return "\n      {".$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
   }
   
   /**
@@ -197,12 +197,15 @@ class GMapInfoWindow
     {
       $this->setOption('content', $content);
     }
+    
     $return = '';
     $return .= $this->getName().' = new google.maps.InfoWindow('.$this->optionsToJs().");\n";
+    
     foreach ($this->custom_properties as $attribute=>$value)
     {
       $return .= $this->getName().".".$attribute." = '".$value."';";
     }
+    
     foreach ($this->events as $event)
     {
       $return .= '    '.$event->getEventJs($this->getName());

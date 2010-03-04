@@ -46,7 +46,7 @@ class GMapEvent
     else
     {
       
-      return 'function() {
+      return 'function(event) {
       '.$this->function.'
     }';
     }
