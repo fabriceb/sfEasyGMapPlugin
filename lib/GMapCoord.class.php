@@ -111,23 +111,47 @@ class GMapCoord
     return self::criteriaInRadius($lat_col_name, $lng_col_name, $this->getLatitude(), $this->getLongitude(), $distance, $criteria, $order_by_distance);
   }
 
+  /**
+   * @return float
+   *
+   * @author fabriceb
+   * @since Apr 21, 2010
+   */
   public function getLatitude()
   {
 
-    return $this->latitude;
+    return (float) $this->latitude;
   }
 
+  /**
+   * @return float
+   *
+   * @author fabriceb
+   * @since Apr 21, 2010
+   */
   public function getLongitude()
   {
 
-    return $this->longitude;
+    return (float) $this->longitude;
   }
 
+  /**
+   *
+   * @param float $latitude
+   * @author fabriceb
+   * @since Apr 21, 2010
+   */
   public function setLatitude($latitude)
   {
     $this->latitude = floatval($latitude);
   }
 
+  /**
+   *
+   * @param float $latitude
+   * @author fabriceb
+   * @since Apr 21, 2010
+   */
   public function setLongitude($longitude)
   {
     $this->longitude = floatval($longitude);
@@ -320,11 +344,12 @@ class GMapCoord
    *
    * @author fabriceb
    * @since 2009-05-02
+   * @since 2010-04-21 added (float) to force . instead of , as separator. If still not working use number_format($this->getLongitude(), 10, '.', '');
    */
   public function __toString()
   {
 
-    return $this->getLatitude().', '.$this->getLongitude();
+    return ((float) $this->getLatitude()).', '.((float) $this->getLongitude());
   }
 
   /**

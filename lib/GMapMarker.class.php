@@ -1,10 +1,10 @@
 <?php
 
 /*
- * 
+ *
  * A GoogleMap Marker
  * @author Fabrice Bernhard
- * 
+ *
  */
 class GMapMarker
 {
@@ -15,36 +15,36 @@ class GMapMarker
    */
   protected $js_name        = null;
   protected $options = array(
-    //  Map  Map on which to display Marker.  
+    //  Map  Map on which to display Marker.
     'map ' => null,
-    // LatLng  Marker position. Required.  
+    // LatLng  Marker position. Required.
     'position ' => null,
-    // string  Rollover text  
+    // string  Rollover text
     'title ' => null,
-    // Icon  for the foreground  
+    // Icon  for the foreground
     'icon ' => null,
-    // Shadow  image  
+    // Shadow  image
     'shadow ' => null,
-    // Object  Image map region for drag/click. Array of x/y values that define the perimeter of the icon.  
+    // Object  Image map region for drag/click. Array of x/y values that define the perimeter of the icon.
     'shape ' => null,
-    // string  Mouse cursor to show on hover  
+    // string  Mouse cursor to show on hover
     'cursor ' => null,
-    // boolean  If true, the marker can be clicked  
+    // boolean  If true, the marker can be clicked
     'clickable ' => null,
-    // boolean  If true, the marker can be dragged.  
+    // boolean  If true, the marker can be dragged.
     'draggable ' => null,
-    // boolean  If true, the marker is visible  
+    // boolean  If true, the marker is visible
     'visible ' => null,
-    // boolean  If true, the marker shadow will not be displayed.  
+    // boolean  If true, the marker shadow will not be displayed.
     'flat ' => null,
-    // number  All Markers are displayed on the map in order of their zIndex, with higher values displaying in front of Markers with lower values. By default, Markers are displayed according to their latitude, with Markers of lower latitudes appearing in front of Markers at higher latitudes.  
+    // number  All Markers are displayed on the map in order of their zIndex, with higher values displaying in front of Markers with lower values. By default, Markers are displayed according to their latitude, with Markers of lower latitudes appearing in front of Markers at higher latitudes.
     'zIndex ' => null,
   );
   protected $info_window = null;
   protected $shadow           = null;
   protected $events         = array();
   protected $custom_properties = array();
-  
+
   /**
    * @param string $js_name Javascript name of the marker
    * @param float $lat Latitude
@@ -60,9 +60,9 @@ class GMapMarker
     $this->js_name = $js_name;
     $this->setOptions($options);
     $this->setGMapCoord(new GMapCoord($lat,$lng));
-    $this->events  = $events;    
+    $this->events  = $events;
   }
-  
+
   /**
    * Construct from a GMapGeocodedAddress object
    *
@@ -76,27 +76,27 @@ class GMapMarker
     {
       throw new sfException('object passed to constructFromGMapGeocodedAddress is not a GMapGeocodedAddress');
     }
-    
+
     return new GMapMarker($js_name,$gmap_geocoded_address->getLat(),$gmap_geocoded_address->getLng());
   }
-  
+
   /**
-  * @return string $js_name Javascript name of the marker  
+  * @return string $js_name Javascript name of the marker
   */
   public function getName()
   {
-    
+
     return $this->js_name;
   }
-  /**    
-  * @return GMapIcon $icon  
+  /**
+  * @return GMapIcon $icon
   */
   public function getIcon()
   {
     return null;//return $this->icon;
   }
-  /**    
-  * @return GMapIcon $icon  
+  /**
+  * @return GMapIcon $icon
   */
   public function getShadow()
   {
@@ -122,7 +122,7 @@ class GMapMarker
     return $this->options;
   }
     /**
-   * 
+   *
    * @param string $name
    * @return mixed
    * @author fabriceb
@@ -130,12 +130,12 @@ class GMapMarker
    */
   public function getOption($name)
   {
-    
+
     return $this->options[$name];
   }
-  
+
   /**
-   * 
+   *
    * @param string $name
    * @param mixed $value
    * @return void
@@ -146,10 +146,10 @@ class GMapMarker
   {
     $this->options[$name] = $value;
   }
-  
+
   /**
    * returns the coordinates object of the marker
-   * 
+   *
    * @return GMapCoord
    * @author fabriceb
    * @since 2009-05-02
@@ -157,12 +157,12 @@ class GMapMarker
    */
   public function getGMapCoord()
   {
-  
+
     return $this->getOption('position');
   }
   /**
    * sets the coordinates object of the marker
-   * 
+   *
    * @param GMapCoord
    * @author fabriceb
    * @since 2009-05-02
@@ -171,26 +171,26 @@ class GMapMarker
   public function setGMapCoord($gmap_coord)
   {
     $this->setOption('position', $gmap_coord);
-  }  
+  }
   /**
-  * @return float $lat Javascript latitude  
+  * @return float $lat Javascript latitude
   */
   public function getLat()
   {
-    
-    return $this->getGMapCoord()->getLatitude();
+
+    return (float) $this->getGMapCoord()->getLatitude();
   }
   /**
-  * @return float $lng Javascript longitude  
+  * @return float $lng Javascript longitude
   */
   public function getLng()
   {
-    
-    return $this->getGMapCoord()->getLongitude();
+
+    return (float) $this->getGMapCoord()->getLongitude();
   }
-    
+
   /**
-   * 
+   *
    * @return string
    * @author fabriceb
    * @since 2009-08-21
@@ -217,12 +217,12 @@ class GMapMarker
     }
     $tab = '  ';
     $separator = "\n".$tab.$tab;
-    
+
     return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
   }
-  
+
   /**
-  * @param string $map_js_name 
+  * @param string $map_js_name
   * @return string Javascript code to create the marker
   * @author Fabrice Bernhard
   * @since 2009-08-21
@@ -238,7 +238,7 @@ class GMapMarker
     {
       $this->setOption('shadow', $this->getShadow());
     }
-    
+
     $return = '';
 
     if($this->info_window instanceof GMapInfoWindow)
@@ -248,7 +248,7 @@ class GMapMarker
         $this->info_window->toJs()."\n      ".$this->info_window->getName().".open(".$map_js_name.", ".$this->getName().");"
       ));
     }
-    
+
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
     foreach ($this->custom_properties as $attribute=>$value)
     {
@@ -257,11 +257,11 @@ class GMapMarker
     foreach ($this->events as $event)
     {
       $return .= '    '.$event->getEventJs($this->getName())."\n";
-    }   
+    }
 
     return $return;
   }
-  
+
   /**
    * Adds an event listener to the marker
    *
@@ -272,12 +272,12 @@ class GMapMarker
     array_push($this->events,$event);
   }
   /**
-   * Adds an onlick listener that open a html window with some text 
+   * Adds an onlick listener that open a html window with some text
    *
    * @param G
    * @author fabriceb
    * @since Feb 20, 2009 fabriceb removed the escape_javascript function which made the plugin incompatible with symfony 1.2
-   * 
+   *
    * @author Maxime Picaud
    * @since 7 sept. 20009 Modified to correspond with new Api v3
    */
@@ -285,7 +285,7 @@ class GMapMarker
   {
     $this->info_window = $info_window;
   }
-  
+
   /**
   * @return GMapInfoWindow
   * @author fabriceb
@@ -293,10 +293,10 @@ class GMapMarker
   */
   public function getHtmlInfoWindow()
   {
-  
+
     return $this->info_window;
   }
-  
+
   /**
    * Returns the code for the static version of Google Maps
    * @TODO Add support for color and alpha-char
@@ -305,7 +305,7 @@ class GMapMarker
    */
   public function getMarkerStatic()
   {
-    
+
     return $this->getLat().','.$this->getLng();
   }
   public function setCustomProperties($custom_properties)
@@ -314,7 +314,7 @@ class GMapMarker
   }
   public function getCustomProperties()
   {
-    
+
     return $this->custom_properties;
   }
   /**
@@ -327,7 +327,7 @@ class GMapMarker
   {
     $this->custom_properties[$name] = $value;
   }
-  
+
   /**
   *
   * @param GMapMarker[] $markers array of MArkers
@@ -343,10 +343,10 @@ class GMapMarker
     {
       array_push($coords, $marker->getGMapCoord());
     }
-   
+
     return GMapCoord::getMassCenterCoord($coords);
   }
-  
+
   /**
   *
   * @param GMapMarker[] $markers array of MArkers
@@ -358,12 +358,12 @@ class GMapMarker
   public static function getCenterCoord($markers)
   {
     $bounds = GMapBounds::getBoundsContainingMarkers($markers);
-  
+
     return $bounds->getCenterCoord();
   }
-  
+
   /**
-   * 
+   *
    * @param GMapBounds $gmap_bounds
    * @return boolean $is_inside
    * @author fabriceb
@@ -371,8 +371,8 @@ class GMapMarker
    */
   public function isInsideBounds(GMapBounds $gmap_bounds)
   {
-  
+
     return $this->getGMapCoord()->isInsideBounds($gmap_bounds);
   }
-  
+
 }
