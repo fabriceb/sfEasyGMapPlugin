@@ -315,7 +315,9 @@ class GMapCoord
 
   /**
    * toString method
+   *
    * @return string
+   *
    * @author fabriceb
    * @since 2009-05-02
    */
@@ -327,8 +329,10 @@ class GMapCoord
 
   /**
    * very approximate calculation of the distance in kilometers between two coordinates
+   *
    * @param GMapCoord $coord2
    * @return float
+   *
    * @author fabriceb
    * @since 2009-05-03
    */
@@ -346,10 +350,11 @@ class GMapCoord
    * exact distance with spherical law of cosines
    *
    * @param GMapCoord $coord2
-   * @author fabriceb
+   * @return float
    * @see http://www.zipcodeworld.com/samples/distance.php.html
-   * @since Apr 21, 2010
    *
+   * @author fabriceb
+   * @since Apr 21, 2010
    */
   public function exactDistanceSLCFrom($coord2)
   {
@@ -371,10 +376,11 @@ class GMapCoord
    * exact distance with Haversine formula
    *
    * @param GMapCoord $coord2
-   * @author fabriceb
+   * @return float
    * @see http://www.movable-type.co.uk/scripts/latlong.html
-   * @since Apr 21, 2010
    *
+   * @author fabriceb
+   * @since Apr 21, 2010
    */
   public function exactDistanceFrom($coord2)
   {
@@ -394,9 +400,11 @@ class GMapCoord
 
   /**
    * very approximate calculation of the distance in kilometers between two coordinates
+   *
    * @param GMapCoord $coord1
    * @param GMapCoord $coord2
    * @return float
+   *
    * @author fabriceb
    * @since 2009-05-03
    */
@@ -407,12 +415,15 @@ class GMapCoord
   }
 
   /**
-   * very approximate calculation of the distance in kilometers between two coordinates
+   * exact distance with spherical law of cosines
+   *
    * @param GMapCoord $coord1
    * @param GMapCoord $coord2
    * @return float
+   * @see exactDistanceSLCFrom
+   *
    * @author fabriceb
-   * @since 2009-05-03
+   * @since Apr 21, 2010
    */
   public static function exactDistanceSLC($coord1, $coord2)
   {
@@ -421,12 +432,15 @@ class GMapCoord
   }
 
   /**
-   * very approximate calculation of the distance in kilometers between two coordinates
+   * exact distance with Haversine formula
+   *
    * @param GMapCoord $coord1
    * @param GMapCoord $coord2
    * @return float
+   * @see exactDistanceFrom
+   *
    * @author fabriceb
-   * @since 2009-05-03
+   * @since Apr 21, 2010
    */
   public static function exactDistance($coord1, $coord2)
   {
@@ -438,6 +452,7 @@ class GMapCoord
    *
    * @param GMapBounds $gmap_bounds
    * @return boolean $is_inside
+   *
    * @author fabriceb
    * @since Jun 2, 2009 fabriceb
    */
