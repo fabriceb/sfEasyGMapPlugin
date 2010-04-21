@@ -9,7 +9,7 @@ include(dirname(__FILE__).'/../bootstrap/unit.php');
 //include(dirname(__FILE__).'/../bootstrap/functional.php');
 
 
-$t = new lime_test(289, new lime_output_color());
+$t = new lime_test(293, new lime_output_color());
 
 $t->diag('GMapCoords Tests');
 
@@ -47,10 +47,14 @@ $t->is($pix,0,'Longitude -180 is at the left of the map whathever the zoom');
 $coord_paris = new GMapCoord(48.857939,2.346611);
 $coord_le_mans = new GMapCoord(48.007381,0.202131);
 $t->is(round(GMapCoord::distance($coord_le_mans, $coord_paris)),257,'Approximate distance between Le Mans and Paris is 257');
+$t->is(round(GMapCoord::exactDistance($coord_le_mans, $coord_paris),4),184.5783,'Approximate distance between Le Mans and Paris is 257');
+$t->is(round(GMapCoord::exactDistanceSLC($coord_le_mans, $coord_paris),4),184.3091,'Approximate distance between Le Mans and Paris is 257');
 
 $coord_luxembourg = new GMapCoord(48.846559,2.340689);
 $coord_saint_michel = new GMapCoord(48.853717,2.344015);
 $t->is(round(GMapCoord::distance($coord_luxembourg, $coord_saint_michel)*1000),879,'Approximate distance between RER Luxembourg and Saint-Michel is 879 meters');
+$t->is(round(GMapCoord::exactDistance($coord_luxembourg, $coord_saint_michel)*1000,4),833.4828,'Approximate distance between RER Luxembourg and Saint-Michel is 879 meters');
+$t->is(round(GMapCoord::exactDistanceSLC($coord_luxembourg, $coord_saint_michel)*1000,4),832.267,'Approximate distance between RER Luxembourg and Saint-Michel is 879 meters');
 
 
 $coord_luxembourg = new GMapCoord(48.846559,2.340689);

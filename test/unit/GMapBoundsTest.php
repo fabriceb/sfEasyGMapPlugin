@@ -29,8 +29,8 @@ $t = new lime_test(15, new lime_output_color());
 $t->diag('GMapBounds test');
 
 $t->diag('->__toString Test');
-$t->is($bounds->__toString(),'((48.7887237041, 2.23631017383), (48.9242565582, 2.44230382617))','On a déduit correctement les bounds à partir de la largeur de la carte, le centre et le zoom');
-
+$t->like($bounds->__toString(),'/\(\(48\.788723704\d*, 2\.2363101738\d*\), \(48\.924256558\d*, 2\.4423038261\d*\)\)/','On a déduit correctement les bounds à partir de la largeur de la carte, le centre et le zoom');
+//((48.788723704147, 2.2363101738281), (48.924256558173, 2.4423038261719))
 $t->diag('->getZoom Test');
 
 $bounds_world = GMapBounds::createFromString('((-90, -180), (90, 180))');
@@ -49,10 +49,10 @@ $t->is($bounds_france->getZoom(300),5,'Pour voir la France sur une largeur/haute
 $t->diag('->getHomothety Test');
 $bounds_france = GMapBounds::createFromString('((42.391008609205045, -4.833984375), (51.37178037591737, 8.349609375))');
 $bounds_twice_france = $bounds_france->getHomothety(2);
-$t->is($bounds_twice_france->__toString(),'((37.9006227258, -11.42578125), (55.8621662593, 14.94140625))','France zoomed out once works');
+$t->like($bounds_twice_france->__toString(),'/\(\(37\.900622725\d*, -11\.4257812\d*\), \(55\.862166259\d*, 14\.9414062\d*\)\)/','France zoomed out once works');
 $t->diag('->getZoomOut Test');
 $bounds_twice_france = $bounds_france->getZoomOut(1);
-$t->is($bounds_twice_france->__toString(),'((37.9006227258, -11.42578125), (55.8621662593, 14.94140625))','France zoomed out once works');
+$t->like($bounds_twice_france->__toString(),'/\(\(37\.900622725\d*, -11\.4257812\d*\), \(55\.862166259\d*, 14\.9414062\d*\)\)/','France zoomed out once works');
 
 $t->diag('->getBoundsContainingAllBounds Test');
 $bounds = GMapBounds::createFromString('((48.7887996681, 2.23631017383), (48.9243326339, 2.44230382617))');
@@ -85,8 +85,7 @@ $t->diag('->getBoundsFromCenter Test');
 $center_coord = new GMapCoord(48.856536,2.339307);
 $zoom = 11;
 $bounds = GMapBounds::getBoundsFromCenterAndZoom($center_coord, $zoom, 300, 300);
-
-$t->is($bounds->__toString(),'((48.7887237041, 2.23631017383), (48.9242565582, 2.44230382617))','On a déduit correctement les bounds à partir de la largeur de la carte, le centre et le zoom');
+$t->like($bounds->__toString(),'/\(\(48\.788723704\d*, 2\.2363101738\d*\), \(48\.924256558\d*, 2\.4423038261\d*\)\)/','On a déduit correctement les bounds à partir de la largeur de la carte, le centre et le zoom');
 
 $bounds = GMapBounds::getBoundsFromCenterAndZoom($center_coord, $zoom, 1, 1);
 $t->is($bounds->__toString(),'((48.856536, 2.339307), (48.856536, 2.339307))','On a déduit correctement les bounds à partir de la largeur de la carte, le centre et le zoom');

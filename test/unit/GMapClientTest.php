@@ -19,9 +19,9 @@ $gMapClient->setAPIKey('test2');
 $t->is($gMapClient->getAPIKey(),'test2','key returned well');
 
 $t->diag('->getGoogleJsUrl');
-$t->is($gMapClient->getGoogleJsUrl(false),'http://www.google.com/jsapi?&key=test2','getGoogleJsUrl working');
-$t->is($gMapClient->getGoogleJsUrl(true),'http://www.google.com/jsapi?&key=test2&autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22maps%22%2C%22version%22%3A%222%22%7D%5D%7D','getGoogleJsUrl working');
-$t->is($gMapClient->getGoogleJsUrl(),'http://www.google.com/jsapi?&key=test2&autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22maps%22%2C%22version%22%3A%222%22%7D%5D%7D','getGoogleJsUrl working');
+$t->is($gMapClient->getGoogleJsUrl(false),'http://maps.google.com/maps/api/js?sensor=false','getGoogleJsUrl working');
+$t->is($gMapClient->getGoogleJsUrl(true),'http://maps.google.com/maps/api/js?sensor=false','getGoogleJsUrl working');
+$t->is($gMapClient->getGoogleJsUrl(),'http://maps.google.com/maps/api/js?sensor=false','getGoogleJsUrl working');
 
 $t->diag('->setCache / getCache / hasCache');
 $t->ok(!$gMapClient->hasCache(),'is not using cache');
