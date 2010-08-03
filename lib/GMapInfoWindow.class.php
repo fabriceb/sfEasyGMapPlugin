@@ -79,13 +79,11 @@ class GMapInfoWindow
    * @param string $content
    * @author Maxime Picaud
    * @since 7 sept. 2009
+   * @since 2010-08-03 fabriceb : applied Tim Kuijsten's patch 
    */
   public function setContent($content)
   {
-    $content = preg_replace('/\r\n|\n|\r/', "\\n", $content);
-    $content = preg_replace('/(["\'])/', '\\\\\1', $content);
-    
-    $this->content = '"'.$content.'"';
+    $this->content = json_encode($content);
   }
   
   
