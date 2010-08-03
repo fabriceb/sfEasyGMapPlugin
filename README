@@ -12,16 +12,28 @@ Installation
 
         $ symfony plugin:install sfEasyGMapPlugin (Not tested)
 
-        or in your plugins directory :
+        or in your plugins directory:
 
         $ svn co http://svn.symfony-project.com/plugins/sfEasyGMapPlugin/branches/v3 sfEasyGMapPlugin
 
-  * Optional: enable the sample module in your `settings.yml`: sfEasyGMapPlugin
+  * Optional: enable the sample module in your `settings.yml`, sfEasyGMapPlugin
 
             [php]
             all:
               .settings:
                 enabled_modules:      [default, sfEasyGMapPlugin]
+
+  * Optional: the v3 version still needs an API key for some functionalities, like Geocoding. Add the following lines in your `app.yml` file
+
+            [php]
+            all:
+              google_maps_api:
+                keys:
+                  www.yourdomain.com: 'google_key1'
+                  localhost:          'google_key2'
+                  default:            'google_key3'
+
+    Keys are obtained here: http://code.google.com/intl/fr/apis/maps/signup.html
 
   * Clear your cache
 
