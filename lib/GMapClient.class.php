@@ -151,9 +151,23 @@ class GMapClient
       $api_keys = sfConfig::get('app_google_maps_api_keys');
     }
 
+    // find root domain (www.local.dev.example.com -> example.com)
+    $rootDomain = null;
+    $tokens = explode('.', $domain);
+    if (sizeof($tokens) > 2)
+    {
+      $rootDomain = implode('.', array_slice($tokens, -2, 2));
+    }
+
     if (is_array($api_keys) && array_key_exists($domain, $api_keys))
     {
+      // exact domain match (ex: www.local.dev.example.com)
       $api_key = $api_keys[$domain];
+    }
+    elseif ($rootDomain !== null && is_array($api_keys) && array_key_exists($rootDomain, $api_keys))
+    {
+      // root domain match (ex: example.com)
+      $api_key = $api_keys[$rootDomain];
     }
     else
     {
