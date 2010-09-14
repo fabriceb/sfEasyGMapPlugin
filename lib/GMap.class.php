@@ -415,9 +415,19 @@ class GMap
    */
   public function getJavascript()
   {
+    $language = null;
+    $region = null;
     if (class_exists('sfContext'))
     {
-      sfContext::getInstance()->getResponse()->addJavascript($this->getGoogleJsUrl());
+      // get user culture
+      $tokens = explode('_', sfContext::getInstance()->getUser()->getCulture());
+      $language = $tokens[0];
+      if (sizeof($tokens) > 1)
+      {
+        $region = $tokens[1];
+      }
+
+      sfContext::getInstance()->getResponse()->addJavascript($this->getGoogleJsUrl(true, $language, $region));
     }
 
 
@@ -465,10 +475,10 @@ class GMap
    * returns the URLS for the google map Javascript file
    * @return string $js_url
    */
-  public function getGoogleJsUrl($auto_load = true)
+  public function getGoogleJsUrl($auto_load = true, $language = null, $region = null)
   {
 
-    return $this->getGMapClient()->getGoogleJsUrl($auto_load);
+    return $this->getGMapClient()->getGoogleJsUrl($auto_load, $language, $region);
   }
 
   /**

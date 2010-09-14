@@ -264,9 +264,19 @@ class GMapClient
    * @author fabriceb
    * @since 2009-06-17
    */
-  public function getGoogleJsUrl($auto_load = true)
+  public function getGoogleJsUrl($auto_load = true, $language = null, $region = null)
   {
     $js_url = self::JS_URL;
+
+    if ($language !== null)
+    {
+      $js_url .= "&language=$language";
+    }
+
+    if ($region !== null)
+    {
+      $js_url .= "&region=$region";
+    }
 
     return $js_url;
   }
