@@ -21,7 +21,7 @@ $gMap->setHeight('500');
 $gMap->setWidth('100%');
 
 $marker = new GMapMarker(-25.363882, 131.044922, array('title'=>'"Hello World!"'));
-$marker->addEvent(new GMapEvent('click', 'map.set_zoom(8);'));
+$marker->addEvent(new GMapEvent('click', 'map.setZoom(8);'));
 $gMap->addMarker($marker);
 
 $gMap->addEvent(new GMapEvent('zoom_changed', 'setTimeout(moveToDarwin, 1500);'));
@@ -41,7 +41,7 @@ $gMap->addEvent(new GMapEvent('zoom_changed', 'setTimeout(moveToDarwin, 1500);')
     <script type="text/javascript">
     function moveToDarwin() {
       var darwin = new google.maps.LatLng(-12.461334, 130.841904);
-      map.set_center(darwin);
+      map.setCenter(darwin);
     }
   </script>
   </head>

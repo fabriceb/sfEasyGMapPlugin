@@ -2,8 +2,8 @@
 var moveToMarker = function ()
 {
   var darwin = new google.maps.LatLng(-12.461334, 130.841904);
-  map.set_zoom(13);
-  map.set_center(darwin);
+  map.setZoom(13);
+  map.setCenter(darwin);
   
   gmapSample_AddConsoleLine("You just click on Darwin's marker !");
 }

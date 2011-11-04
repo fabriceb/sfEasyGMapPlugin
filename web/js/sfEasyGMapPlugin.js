@@ -50,9 +50,9 @@ var set_location = function(response, status)
   marker.gps_precision = zoom;
   //console.log('position settée ' + marker.google_position);
   
-  marker.set_position(point);
-  map.set_zoom(zoom);
-  map.set_center(point);
+  marker.setPosition(point);
+  map.setZoom(zoom);
+  map.setCenter(point);
 }
 
 var geocode_and_show = function (address)
